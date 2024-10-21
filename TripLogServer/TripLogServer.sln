@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripLogServer.Domain", "TripLogServer.Domain\TripLogServer.Domain.csproj", "{4D4D15FE-83BB-432C-B438-44B392938D8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripLogServer.Infrastructure", "TripLogServer.Infrastructure\TripLogServer.Infrastructure.csproj", "{B81557AD-F600-45C7-A24E-428C20714DC2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TripLogServer.WebAPI", "TripLogServer.WebAPI\TripLogServer.WebAPI.csproj", "{2ECA2C1B-AE23-4596-827E-5B089CF9D991}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{4D4D15FE-83BB-432C-B438-44B392938D8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D4D15FE-83BB-432C-B438-44B392938D8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D4D15FE-83BB-432C-B438-44B392938D8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81557AD-F600-45C7-A24E-428C20714DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81557AD-F600-45C7-A24E-428C20714DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81557AD-F600-45C7-A24E-428C20714DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81557AD-F600-45C7-A24E-428C20714DC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECA2C1B-AE23-4596-827E-5B089CF9D991}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECA2C1B-AE23-4596-827E-5B089CF9D991}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECA2C1B-AE23-4596-827E-5B089CF9D991}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECA2C1B-AE23-4596-827E-5B089CF9D991}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

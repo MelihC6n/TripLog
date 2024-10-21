@@ -9,4 +9,6 @@ public sealed class Trip
     public string Title { get; set; } = default!;
     public string Description { get; set; } = default!;
     public string ImageUrl { get; set; } = default!;
+    public ICollection<Tag>? Tags { get; set; }
+    public ICollection<TripContent>? TripPhotos { get; set; }
 }

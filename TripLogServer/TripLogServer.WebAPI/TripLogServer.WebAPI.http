@@ -1,0 +1,6 @@
+@TripLogServer.WebAPI_HostAddress = http://localhost:5253
+
+GET {{TripLogServer.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
