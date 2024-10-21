@@ -1,0 +1,57 @@
+<nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+
+      <a class="navbar-brand" href="#">          <i class="fa-solid fa-feather-pointed" style="color: #63E6BE;"></i> TripLog</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
+        <!-- <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        </form> -->
+        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" id="mainPage">
+  </div>
+  <br><br>
+
+  <div class="modal fade" id="tripModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="tripModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>Gezi Başlığı:</h5>
+          <input type="text" class="form-control" id="tripTitle" placeholder="Gezi başlığı giriniz.">
+          <br>
+          <h5>Gezi Metni:</h5>
+          <input type="text" class="form-control" id="tripText" placeholder="Gezi metni giriniz.">
+          <br>
+          <h5>Gezi Kapak Fotoğrafı:</h5>
+          <input type="file" id="tripImage" class="form-control">
+          <br>
+          <h5>Gezi Tagleri:</h5>
+          <textarea class="form-control" id="tripTags" rows="3"></textarea>
+          <br>
+          <hr class="border-3">
+
+          <div id="tripPhotos">
+              <!-- Alt Başlıklar Buraya Geliyor -->
+          </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" style="margin-right: auto;" onclick="addTripPart()">Gezi Parçası Ekle</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelTrip()">İptal</button>
+          <button type="button" class="btn btn-primary" onclick="createTrip()">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>

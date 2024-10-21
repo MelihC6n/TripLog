@@ -1,1 +1,74 @@
-/* You can add global styles to this file, and also import other style files */
+.navbar{
+    background-color: #b97a57;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.navbar-brand{
+    color: white;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.container{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: self-start;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.btn-light{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.card-main{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.card-left {
+    flex: 1;
+}
+
+.card-right {
+    flex: 2;
+}
+
+.card-img-top {
+    width: 400px;
+    height: auto;
+}
+
+.carousel-inner{
+    width: 800px !important;
+}
+
+.accordion-item{
+    display: flex;
+    justify-content: center;
+    align-items: self-start;
+    flex-wrap: wrap;
+}
+
+.tripbody{
+    flex-grow: 1;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto;
+    width: fit-content;
+}
+
+.card-right{
+    display: flex;
+}
+
+.carousel-img{
+    height: 500px;
+}
