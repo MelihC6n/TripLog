@@ -20,38 +20,39 @@
   </div>
   <br><br>
 
-  <div class="modal fade" id="tripModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="tripModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="tripModalLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <form #addForm="ngForm" autocomplete="off" (ngSubmit)="createTrip(addForm)">
         <div class="modal-body">
           <h5>Gezi Başlığı:</h5>
-          <input type="text" class="form-control" id="tripTitle" placeholder="Gezi başlığı giriniz.">
+          <input type="text" class="form-control" name="title" [(ngModel)]="createTripModel.title" placeholder="Gezi başlığı giriniz.">
           <br>
           <h5>Gezi Metni:</h5>
-          <input type="text" class="form-control" id="tripText" placeholder="Gezi metni giriniz.">
+          <input type="text" class="form-control" name="description" [(ngModel)]="createTripModel.description" placeholder="Gezi metni giriniz.">
           <br>
           <h5>Gezi Kapak Fotoğrafı:</h5>
-          <input type="file" id="tripImage" class="form-control">
+          <input type="file" name="image" (change)="selectImage($event)" class="form-control">
           <br>
           <h5>Gezi Tagleri:</h5>
-          <textarea class="form-control" id="tripTags" rows="3"></textarea>
+          <textarea class="form-control" [(ngModel)]="createTripModel.tags" name="name" rows="3"></textarea>
           <br>
           <hr class="border-3">
 
           <div id="tripPhotos">
               <!-- Alt Başlıklar Buraya Geliyor -->
           </div>
-
+        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-success" style="margin-right: auto;" onclick="addTripPart()">Gezi Parçası Ekle</button>
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelTrip()">İptal</button>
-          <button type="button" class="btn btn-primary" onclick="createTrip()">Kaydet</button>
+          <button type="submit" class="btn btn-primary">Kaydet</button>
         </div>
+      </form>
       </div>
     </div>
-  </div>
   </div>
