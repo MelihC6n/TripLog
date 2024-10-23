@@ -20,4 +20,8 @@
     <ProjectReference Include="..\TripLogServer.Infrastructure\TripLogServer.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\trips\" />
+  </ItemGroup>
+
 </Project>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -37,7 +38,7 @@ namespace TripLogServer.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TripTag",
+                name: "TagTrip",
                 columns: table => new
                 {
                     TagsId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -83,7 +84,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_TagTrip_TripsId",
-                table: "TripTag",
+                table: "TagTrip",
                 column: "TripsId");
 
             migrationBuilder.CreateIndex(
@@ -96,7 +97,7 @@ namespace TripLogServer.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "TripTag");
+                name: "TagTrip");
 
             migrationBuilder.DropTable(
                 name: "TripContents");

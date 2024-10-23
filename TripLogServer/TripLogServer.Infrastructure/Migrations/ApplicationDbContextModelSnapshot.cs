@@ -34,7 +34,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
                     b.HasIndex("TripsId");
 
-                    b.ToTable("TagTrip", (string)null);
+                    b.ToTable("TagTrip");
                 });
 
             modelBuilder.Entity("TripLogServer.Domain.Entities.Tag", b =>
@@ -49,7 +49,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("TripLogServer.Domain.Entities.Trip", b =>
@@ -72,7 +72,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Trips", (string)null);
+                    b.ToTable("Trips");
                 });
 
             modelBuilder.Entity("TripLogServer.Domain.Entities.TripContent", b =>
@@ -100,7 +100,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
                     b.HasIndex("TripId");
 
-                    b.ToTable("TripContents", (string)null);
+                    b.ToTable("TripContents");
                 });
 
             modelBuilder.Entity("TagTrip", b =>
@@ -121,7 +121,7 @@ namespace TripLogServer.Infrastructure.Migrations
             modelBuilder.Entity("TripLogServer.Domain.Entities.TripContent", b =>
                 {
                     b.HasOne("TripLogServer.Domain.Entities.Trip", "Trip")
-                        .WithMany("TripPhotos")
+                        .WithMany("TripContents")
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -131,7 +131,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
             modelBuilder.Entity("TripLogServer.Domain.Entities.Trip", b =>
                 {
-                    b.Navigation("TripPhotos");
+                    b.Navigation("TripContents");
                 });
 #pragma warning restore 612, 618
         }

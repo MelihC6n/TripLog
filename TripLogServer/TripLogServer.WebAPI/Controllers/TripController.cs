@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TripLogServer.Application.Features.Trip.CreateTrip;
+using TripLogServer.Application.Features.Trips.CreateTrip;
 using TripLogServer.WebAPI.Abstractions;
 
 namespace TripLogServer.WebAPI.Controllers;

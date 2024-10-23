@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using TripLogServer.Domain.Abstractions;
 
 namespace TripLogServer.Infrastructure.Abstractions;
@@ -8,6 +9,16 @@ public abstract class Repository<T, Db> : IRepository<T> where T : class where D
     public Repository(Db context)
     {
         this.context = context;
+    }
+
+    public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+    {
+        return context.Set<T>().Where(expression).AsQueryable();
+    }
+
+    public bool Any(Expression<Func<T, bool>> expression)
+    {
+        return context.Set<T>().Any(expression);
     }
 
     public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)

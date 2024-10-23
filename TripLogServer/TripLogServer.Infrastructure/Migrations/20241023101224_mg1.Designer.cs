@@ -12,7 +12,7 @@ using TripLogServer.Infrastructure.Context;
 namespace TripLogServer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241021104417_mg1")]
+    [Migration("20241023101224_mg1")]
     partial class mg1
     {
         /// <inheritdoc />
@@ -124,7 +124,7 @@ namespace TripLogServer.Infrastructure.Migrations
             modelBuilder.Entity("TripLogServer.Domain.Entities.TripContent", b =>
                 {
                     b.HasOne("TripLogServer.Domain.Entities.Trip", "Trip")
-                        .WithMany("TripPhotos")
+                        .WithMany("TripContents")
                         .HasForeignKey("TripId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -134,7 +134,7 @@ namespace TripLogServer.Infrastructure.Migrations
 
             modelBuilder.Entity("TripLogServer.Domain.Entities.Trip", b =>
                 {
-                    b.Navigation("TripPhotos");
+                    b.Navigation("TripContents");
                 });
 #pragma warning restore 612, 618
         }
