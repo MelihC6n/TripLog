@@ -7,4 +7,10 @@ public sealed record CreateTripCommand(
     string Title,
     string Description,
     IFormFile Image,
-    string Tags) : IRequest<Result<string>>;
+    string Tags,
+    List<TripContentCommand> TripContents) : IRequest<Result<string>>;
+
+public sealed record TripContentCommand(
+    string Title,
+    string Description,
+    IFormFile Image);

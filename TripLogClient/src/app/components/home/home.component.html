@@ -22,13 +22,13 @@
 
   <div class="modal fade" id="tripModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-      <div class="modal-content">
+      <div class="modal-content ">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="tripModalLabel">Modal title</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <form #addForm="ngForm" autocomplete="off" (ngSubmit)="createTrip(addForm)">
         <div class="modal-body">
+          <form #addForm="ngForm" autocomplete="off" (ngSubmit)="createTrip(addForm)">
           <h5>Gezi Başlığı:</h5>
           <input type="text" class="form-control" name="title" [(ngModel)]="createTripModel.title" placeholder="Gezi başlığı giriniz.">
           <br>
@@ -44,15 +44,17 @@
           <hr class="border-3">
 
           <div id="tripPhotos">
-              <!-- Alt Başlıklar Buraya Geliyor -->
+            @for (item of tripContents; track $index) {
+              <app-trip-content [tripCounter]="item"></app-trip-content>
+            }
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" style="margin-right: auto;" (click)="addTripPart()">Gezi Parçası Ekle</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelTrip()">İptal</button>
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+          </div>
+        </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-success" style="margin-right: auto;" onclick="addTripPart()">Gezi Parçası Ekle</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelTrip()">İptal</button>
-          <button type="submit" class="btn btn-primary">Kaydet</button>
-        </div>
-      </form>
       </div>
     </div>
   </div>

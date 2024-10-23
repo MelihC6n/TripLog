@@ -30,6 +30,9 @@ internal sealed class CreateTripCommandHandler(
 
         var tripTags = tagRepository.Where(searchTags => tagList.Any(x => x == searchTags.Name)).ToList();
 
+
+        List<TripContent> tripContents = new List<TripContent>();
+
         var imagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), request.Image.FileName);
 
         Trip trip = new()
@@ -37,12 +40,13 @@ internal sealed class CreateTripCommandHandler(
             Title = request.Title,
             Description = request.Description,
             Tags = tripTags,
-            ImageUrl = imagePath
+            ImageUrl = imagePath,
+            TripContents = tripContents
         };
+        await tripRepository.CreateAsync(trip, cancellationToken);
 
         await imageService.SaveImageAsync(imagePath, folder, request.Image);
 
-        await tripRepository.CreateAsync(trip, cancellationToken);
         return "ok";
     }
 }

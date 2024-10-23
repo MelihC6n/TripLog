@@ -1,4 +1,3 @@
-import { TagModel } from "./tag.model";
 import { TripContent } from "./trip-content.model";
 
 export class CreateTripModel{

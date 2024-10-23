@@ -4,11 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { TripModel } from '../../models/trip.model';
 import { CreateTripModel } from '../../models/create-trip.model';
 import { HttpService } from '../../services/http.service';
+import { TripContentComponent } from "../trip-content/trip-content.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule, TripContentComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -17,6 +18,10 @@ export class HomeComponent {
   constructor(
     private http:HttpService
   ){}
+
+  tripCounter:number=1;
+  maxTripCounter:number=10;
+  tripContents:number[]=[];
 
   createTripModel:CreateTripModel=new CreateTripModel();
 
@@ -37,6 +42,14 @@ export class HomeComponent {
     const file=event.target.files[0];
     if(file){
       this.createTripModel.image=file;
+    }
+  }
+
+  addTripPart(){
+    if(this.tripContents.length<this.tripCounter){
+      this.tripContents.push(this.tripCounter);
+      this.tripCounter++;
+      console.log(this.tripContents);
     }
   }
 }
