@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\contents\" />
     <Folder Include="wwwroot\trips\" />
   </ItemGroup>
 

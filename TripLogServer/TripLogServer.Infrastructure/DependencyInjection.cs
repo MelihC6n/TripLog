@@ -17,7 +17,6 @@ public static class DependencyInjection
             options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
         });
 
-
         services.AddScoped<ITripRepository, TripRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<ITripContentRepository, TripContentRepository>();

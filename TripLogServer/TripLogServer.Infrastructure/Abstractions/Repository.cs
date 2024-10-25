@@ -6,29 +6,31 @@ namespace TripLogServer.Infrastructure.Abstractions;
 public abstract class Repository<T, Db> : IRepository<T> where T : class where Db : DbContext
 {
     private readonly Db context;
+    private DbSet<T> entity;
     public Repository(Db context)
     {
         this.context = context;
+        entity = context.Set<T>();
     }
 
     public IQueryable<T> Where(Expression<Func<T, bool>> expression)
     {
-        return context.Set<T>().Where(expression).AsQueryable();
+        return entity.Where(expression).AsQueryable();
     }
 
     public bool Any(Expression<Func<T, bool>> expression)
     {
-        return context.Set<T>().Any(expression);
+        return entity.Any(expression);
     }
 
-    public async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
+    public IQueryable<T> GetAll()
     {
-        return await context.Set<T>().ToListAsync(cancellationToken);
+        return entity.AsQueryable();
     }
 
     public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await context.Set<T>().FindAsync(id, cancellationToken);
+        return await entity.FindAsync(id, cancellationToken);
     }
 
     public async Task CreateAsync(T entity, CancellationToken cancellationToken)

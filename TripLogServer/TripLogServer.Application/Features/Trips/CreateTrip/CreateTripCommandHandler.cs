@@ -13,7 +13,6 @@ internal sealed class CreateTripCommandHandler(
 {
     public async Task<Result<string>> Handle(CreateTripCommand request, CancellationToken cancellationToken)
     {
-        string folder = "trips";
         var tagList = request.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
 
         foreach (var tags in tagList)
@@ -30,8 +29,23 @@ internal sealed class CreateTripCommandHandler(
 
         var tripTags = tagRepository.Where(searchTags => tagList.Any(x => x == searchTags.Name)).ToList();
 
-
         List<TripContent> tripContents = new List<TripContent>();
+
+        foreach (var item in request.TripContents)
+        {
+            var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), item.Image.FileName);
+
+            TripContent tripContent = new()
+            {
+                Title = item.Title,
+                Description = item.Description,
+                ImageUrl = contentImagePath
+            };
+
+            await imageService.SaveImageAsync(contentImagePath, "contents", item.Image);
+
+            tripContents.Add(tripContent);
+        }
 
         var imagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), request.Image.FileName);
 
@@ -45,7 +59,7 @@ internal sealed class CreateTripCommandHandler(
         };
         await tripRepository.CreateAsync(trip, cancellationToken);
 
-        await imageService.SaveImageAsync(imagePath, folder, request.Image);
+        await imageService.SaveImageAsync(imagePath, "trips", request.Image);
 
         return "ok";
     }
