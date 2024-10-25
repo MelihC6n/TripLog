@@ -29,6 +29,7 @@
             <div class="card-right">
                 <div class="card-body tripbody">
                   <div>
+                    <h6 style="float: right;">{{ trip.createdDate | date: 'yyyy-MM-dd : HH-mm' }}</h6>
                     <h5 class="card-title">{{trip.title}}</h5>
                     <p class="card-text">{{trip.description}}</p>
                   </div>  
@@ -56,7 +57,7 @@
                                 <div [ngClass]="{'carousel-item':true, 'active':$index == 0}">
                                   <img src="https://localhost:7113/contents/{{content.imageUrl}}" class="d-block w-100 carousel-img" alt="...">
                                   <div class="card-body">
-                                    <h5 class="card-title">{{content.title}}</h5>
+                                    <h5 class="card-title">{{$index+1}}. {{content.title}}</h5>
                                     <p class="card-text">{{content.description}}</p>
                                   </div>
                                 </div>
@@ -87,7 +88,7 @@
       <div class="modal-content ">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="tripModalLabel">Modal title</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button type="button" #modelCloseBtn class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form #addForm="ngForm" autocomplete="off" (ngSubmit)="createTrip(addForm)">

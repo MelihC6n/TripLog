@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { CreateTripModel } from '../../models/create-trip.model';
 import { HttpService } from '../../services/http.service';
 import { TripContentComponent } from "../trip-content/trip-content.component";
 import { CreateTripContentModel } from '../../models/create-trip-content.model';
 import { TripModel } from '../../models/trip.model';
+import { SwalService } from '../../services/swal.service';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,14 @@ import { TripModel } from '../../models/trip.model';
 export class HomeComponent implements OnInit {
 
   constructor(
-    private http:HttpService
+    private http:HttpService,
+    private swal:SwalService
   ){}
 
   tripModel:TripModel[]=[];
 
   @ViewChildren(TripContentComponent) tripContentComponents !: QueryList<TripContentComponent>;
+  @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
 
   tripCounter:number=1;
   maxTripCounter:number=10;
@@ -31,6 +34,10 @@ export class HomeComponent implements OnInit {
   createTripModel:CreateTripModel=new CreateTripModel();
 
   ngOnInit(): void {
+    this.getAll();
+  }
+
+  getAll(){
     this.http.post<TripModel>("Trip/GetAll",{},res=>{
       this.tripModel=res.data;
     })
@@ -57,9 +64,10 @@ export class HomeComponent implements OnInit {
     });
 
     this.http.post("Trip/Create",formData,res=>{
-      console.log(res.data);
+      this.modelCloseBtn?.nativeElement.click();
+      this.swal.callToast(this.createTripModel.title + " gezisi başarıyla eklendi!","success");
+      this.getAll();
     })
-    console.log(this.createTripModel);
   }
 
   selectImage(event:any){

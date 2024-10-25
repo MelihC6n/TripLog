@@ -10,7 +10,7 @@ internal sealed class GetAllTripQueryHandler(
 {
     public async Task<Result<List<Trip>>> Handle(GetAllTripQuery request, CancellationToken cancellationToken)
     {
-        var response = tripRepository.GetAllTripWithContents().ToList();
+        var response = tripRepository.GetAllTripWithContents().OrderByDescending(x => x.CreatedDate).ToList();
 
         return response;
     }

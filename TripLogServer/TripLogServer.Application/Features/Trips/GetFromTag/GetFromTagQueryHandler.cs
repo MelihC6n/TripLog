@@ -11,7 +11,7 @@ internal sealed class GetFromTagQueryHandler(
 {
     public async Task<Result<List<Trip>>> Handle(GetFromTagQuery request, CancellationToken cancellationToken)
     {
-        var result = tripRepository.GetAllTripWithContents().Where(x => x.Tags.Any(t => t.Name == request.TagName)).ToList();
+        var result = tripRepository.GetAllTripWithContents().Where(x => x.Tags.Any(t => t.Name == request.TagName)).OrderByDescending(x => x.CreatedDate).ToList();
 
         return result;
     }

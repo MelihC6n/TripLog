@@ -6,6 +6,7 @@ export class TripModel{
     title:string="";
     description:string="";
     imageUrl:string="";
+    createdDate:string="";
     tags:TagModel[]=[];
     tripContents:TripContent[]=[];
 }

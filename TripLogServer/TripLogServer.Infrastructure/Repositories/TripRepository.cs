@@ -22,6 +22,7 @@ internal sealed class TripRepository : Repository<Trip, ApplicationDbContext>, I
             Title = t.Title,
             Description = t.Description,
             ImageUrl = t.ImageUrl,
+            CreatedDate = t.CreatedDate,
 
             Tags = t.Tags.Select(x => new Tag
             {

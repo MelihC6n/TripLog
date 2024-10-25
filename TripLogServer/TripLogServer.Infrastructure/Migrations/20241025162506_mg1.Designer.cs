@@ -12,7 +12,7 @@ using TripLogServer.Infrastructure.Context;
 namespace TripLogServer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241023101224_mg1")]
+    [Migration("20241025162506_mg1")]
     partial class mg1
     {
         /// <inheritdoc />
@@ -61,6 +61,9 @@ namespace TripLogServer.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -88,7 +91,7 @@ namespace TripLogServer.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageIrl")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

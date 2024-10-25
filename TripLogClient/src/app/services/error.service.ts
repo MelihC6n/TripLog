@@ -27,9 +27,9 @@ export class ErrorService {
       message=" : ";
       for(const e of err.error.errorMessages){
         message += e +"\n";
+        console.log(e);
       }
     }
-
     this.Swal.callToast("message",'error');
   }
 }
