@@ -1,7 +1,10 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
 
-      <a class="navbar-brand" href="#">          <i class="fa-solid fa-feather-pointed" style="color: #63E6BE;"></i> TripLog</a>
+      <a class="navbar-brand" href="#" (click)="getAll()">          
+        <i class="fa-solid fa-feather-pointed" style="color: #63E6BE;"></i> 
+        TripLog
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,36 +20,39 @@
   </nav>
 
   <div class="container" id="mainPage">
-
 <!--  -->
     @for (trip of tripModel; track trip) {
 
-      <div class="card" style="width: 58rem;">
-        <div class="card-main">
-            <div class="card-left">            
-                <img src="https://localhost:7113/trips/{{trip.imageUrl}}" class="card-img-top" alt="...">
-            </div>
-            <div class="card-right">
-                <div class="card-body tripbody">
-                  <div>
-                    <h6 style="float: right;">{{ trip.createdDate | date: 'yyyy-MM-dd : HH-mm' }}</h6>
-                    <h5 class="card-title">{{trip.title}}</h5>
-                    <p class="card-text">{{trip.description}}</p>
-                  </div>  
-                <div>
-                  @for (tag of trip.tags; track tag) {
-                    @if (tag != null) {
-                      <a href="#{{tag.name}}" (click)="GetFromTag(tag.name)">{{tag.name}}</a>&nbsp;&nbsp;
-                    }
-                  }
-                      <br><br>
-                      <a href="#" style="width: 100%;" class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="true" aria-controls="collapseOne" style="margin-top:auto">Daha Fazlası İçin 🔽</a>
-                  </div>
-                </div>
-            </div>
-        </div>
+      <div class="card" style="width: auto;">
 
-           <div class="accordion" id="accordionExample">
+          <div class="card-main">
+              <div class="card-left">            
+                  <img src="https://localhost:7113/trips/{{trip.imageUrl}}" class="card-img-top" alt="...">
+              </div>
+              <div class="card-right">
+                  <div class="card-body tripbody">
+                    <div>
+                      <h6 style="float: right;">{{ trip.createdDate | date: 'yyyy-MM-dd : HH-mm' }}</h6>
+                      <h5 class="card-title">{{trip.title}}</h5>
+                      <p class="card-text">{{trip.description}}</p>
+                    </div>  
+                  <div>
+                    @for (tag of trip.tags; track tag) {
+                      @if (tag != null) {
+                        <a href="#{{tag.name}}" (click)="GetFromTag(tag.name)">#{{tag.name}}</a>&nbsp;&nbsp;
+                      }
+                    }
+                        <br><br>
+                        <a href="#" style="width: 100%;" class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto">Daha Fazlası İçin 🔽</a>
+                    </div>
+                  </div>
+              </div>
+          </div>
+  
+             <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between;">
+
+              <div class="contentSide" style="flex: 3rem;">
+
                 <div class="accordion-item">
                   <h2 class="accordion-header"></h2>
                     <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -56,7 +62,7 @@
                             @for (content of trip.tripContents; track content) {
                                 <div [ngClass]="{'carousel-item':true, 'active':$index == 0}">
                                   <img src="https://localhost:7113/contents/{{content.imageUrl}}" class="d-block w-100 carousel-img" alt="...">
-                                  <div class="card-body">
+                                  <div class="card-body" style="height: 200px; overflow-y: auto;">
                                     <h5 class="card-title">{{$index+1}}. {{content.title}}</h5>
                                     <p class="card-text">{{content.description}}</p>
                                   </div>
@@ -75,7 +81,91 @@
                       </div>
                     </div>
                 </div>
-          </div>
+
+              </div>
+
+              <div class="commentSide" style="flex: 1rem; height: auto;">
+      
+                <div class="collapse" id="collapse{{$index}}">
+                  <div class="card card-body" style="width: auto; height: 734px;">
+                    <h5>Comment Area</h5>
+                  
+                    <!-- Yorum listesi -->
+                    <div class="list-group p-1" style="overflow-y: auto; height: 500px; border: 1px;">
+                      <!-- Yorumlara For -->
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                      <div class="list-group-item">
+                        <div class="avatar">
+                          B
+                        </div>
+                          <div class="comment-content">
+                            <strong>Brenda Lee</strong>
+                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
+                          </div>
+                      </div>
+
+                    </div>
+
+                    <div class="add-comment mt-2">
+                      <div class="card card-body">
+                        <h5>Leave A Comment!</h5>
+                        <textarea class="form-control" name="comment" rows="2" style="resize: none;"></textarea>
+                        <button class="btn btn-light mt-1" style="background-color: #b97a57; color: white;">Send Comment</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
       </div>
     }
 <!--  -->
@@ -96,13 +186,13 @@
           <input type="text" class="form-control" name="title" [(ngModel)]="createTripModel.title" placeholder="Gezi başlığı giriniz.">
           <br>
           <h5>Gezi Metni:</h5>
-          <input type="text" class="form-control" name="description" [(ngModel)]="createTripModel.description" placeholder="Gezi metni giriniz.">
+          <textarea type="text" class="form-control" name="description" rows="3" [(ngModel)]="createTripModel.description" placeholder="Gezi metni giriniz."></textarea>
           <br>
           <h5>Gezi Kapak Fotoğrafı:</h5>
           <input type="file" name="image" (change)="selectImage($event)" class="form-control">
           <br>
           <h5>Gezi Tagleri:</h5>
-          <textarea class="form-control" [(ngModel)]="createTripModel.tags" name="name" rows="3"></textarea>
+          <textarea class="form-control" [(ngModel)]="createTripModel.tags" name="name" rows="2" style="resize: none;" placeholder="Gezi taglarını aralarında boşluk bırakarak yazınız."></textarea>
           <br>
           <hr class="border-3">
 
@@ -113,7 +203,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-success" style="margin-right: auto;" (click)="addTripPart()">Gezi Parçası Ekle</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cancelTrip()">İptal</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="cancelTrip()">İptal</button>
             <button type="submit" class="btn btn-primary">Kaydet</button>
           </div>
         </form>

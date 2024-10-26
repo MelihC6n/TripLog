@@ -7,6 +7,7 @@ import { TripContentComponent } from "../trip-content/trip-content.component";
 import { CreateTripContentModel } from '../../models/create-trip-content.model';
 import { TripModel } from '../../models/trip.model';
 import { SwalService } from '../../services/swal.service';
+import { TripContent } from '../../models/trip-content.model';
 
 @Component({
   selector: 'app-home',
@@ -90,5 +91,11 @@ export class HomeComponent implements OnInit {
       TagName:tagName},res=>{
       this.tripModel=res.data
     })
+  }
+
+  cancelTrip(){
+    this.createTripModel=new CreateTripModel;
+    this.tripContents= [];
+
   }
 }
