@@ -27,6 +27,8 @@ export class HomeComponent implements OnInit {
 
   @ViewChildren(TripContentComponent) tripContentComponents !: QueryList<TripContentComponent>;
   @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild("openModel") openModel : ElementRef<HTMLButtonElement> | undefined;
+
 
   tripCounter:number=1;
   maxTripCounter:number=10;
@@ -96,6 +98,26 @@ export class HomeComponent implements OnInit {
   cancelTrip(){
     this.createTripModel=new CreateTripModel;
     this.tripContents= [];
+  }
 
+  openUpdateModal(trip:TripModel){
+    this.openModel?.nativeElement.click();
+    this.createTripModel.title=trip.title;
+    this.createTripModel.description=trip.description;
+    this.createTripModel.tags="";
+    this.createTripModel.tags= trip.tags.map(tag=>tag.name).join(" ");
+
+    this.tripContents=[];
+    this.tripCounter=1;
+
+    trip.tripContents.forEach((content,index) => {
+      this.addTripPart();
+      setTimeout(()=>{
+        const currentComponent = this.tripContentComponents.toArray()[index];
+        if(currentComponent){
+          currentComponent.setValues(content.title,content.description)
+        }
+      });
+    });
   }
 }

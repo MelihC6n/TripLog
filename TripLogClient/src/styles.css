@@ -26,9 +26,16 @@
     gap: 20px;
 }
 
-.btn-light{
+.btn-light-big{
     font-size: 20px;
     font-weight: 500;
+}
+
+.more-content{
+    font-size: 16px;
+    font-weight: 500;
+    background-color:#b97a57; 
+    color: white;
 }
 
 .card-main{
@@ -36,10 +43,15 @@
     display: flex;
     flex-direction: row;
     gap: 20px;
+    flex-wrap: wrap;
 }
 
 .card-left {
     flex: 1;
+    max-height: 300px;
+    width: 400px;
+    height: auto;
+    object-fit: contain;
 }
 
 .card-right {
@@ -47,8 +59,10 @@
 }
 
 .card-img-top {
+    /* height: 250px;
     width: 400px;
     height: auto;
+    object-fit: contain; */
 }
 
 .carousel-inner{
@@ -77,7 +91,9 @@
 }
 
 .carousel-img{
+    max-height: 500px;
     height: 500px;
+    min-height: auto;
 }
 
 .list-group-item{
@@ -102,4 +118,21 @@
     font-size: 1.2rem; 
     margin-right: 10px; 
     position: absolute;
+}
+
+.title{
+    border-radius: 15px 5px 15px 5px; 
+    padding: 6px 10px; 
+    background-color: #b97a57; 
+    color: white; 
+}
+
+.edit-button{
+    cursor: pointer; 
+    padding: 12px 14px; 
+    width: 40px; 
+    height: 40px; 
+    border-radius: 50%; 
+    float: right; 
+    color: white;
 }

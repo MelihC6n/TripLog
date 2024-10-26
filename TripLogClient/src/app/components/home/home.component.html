@@ -14,7 +14,7 @@
         <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form> -->
-        <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
+        <button type="button" class="btn btn-light btn-light-big" data-bs-toggle="modal" #openModel data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
       </div>
     </div>
   </nav>
@@ -32,8 +32,8 @@
               <div class="card-right">
                   <div class="card-body tripbody">
                     <div>
-                      <h6 style="float: right;">{{ trip.createdDate | date: 'yyyy-MM-dd : HH-mm' }}</h6>
-                      <h5 class="card-title">{{trip.title}}</h5>
+                      <h6 class="title" style="float: right; margin-top: 3px;">{{ trip.createdDate | date: 'yyyy-MM-dd : HH-mm' }}</h6>
+                      <h5 class="card-title title">{{trip.title}}</h5>
                       <p class="card-text">{{trip.description}}</p>
                     </div>  
                   <div>
@@ -43,13 +43,15 @@
                       }
                     }
                         <br><br>
-                        <a href="#" style="width: 100%;" class="btn btn-primary" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto">Daha Fazlası İçin 🔽</a>
+                        <a href="#" style="width: 100%;" class="btn btn-light more-content" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto; ">Daha Fazlası İçin 🔽</a>
+                        <i class="fa-solid fa-x mt-1 me-2 edit-button" style="background-color:red;" title="Delete This Post"></i>
+                        <i class="fa-solid fa-pen-nib mt-1 me-2 edit-button" style="padding: 12px 13px; background-color: rgb(0, 192, 134);" title="Edit This Post" (click)="openUpdateModal(trip)"></i>
                     </div>
                   </div>
               </div>
           </div>
   
-             <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between;">
+             <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between; flex-wrap: wrap; flex-direction: row;">
 
               <div class="contentSide" style="flex: 3rem;">
 
@@ -84,7 +86,7 @@
 
               </div>
 
-              <div class="commentSide" style="flex: 1rem; height: auto;">
+              <div class="commentSide" style="flex: 1rem; height: auto; width: auto;">
       
                 <div class="collapse" id="collapse{{$index}}">
                   <div class="card card-body" style="width: auto; height: 734px;">
@@ -159,7 +161,7 @@
                       <div class="card card-body">
                         <h5>Leave A Comment!</h5>
                         <textarea class="form-control" name="comment" rows="2" style="resize: none;"></textarea>
-                        <button class="btn btn-light mt-1" style="background-color: #b97a57; color: white;">Send Comment</button>
+                        <button class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;">Send Comment</button>
                       </div>
                     </div>
                   </div>

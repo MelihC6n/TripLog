@@ -22,6 +22,11 @@ export class TripContentComponent {
     }
   }
 
+  setValues(title:string,description:string){
+    this.title=title;
+    this.description=description;
+  }
+
   getTripContentData():CreateTripContentModel{
     return{
       title:this.title,
