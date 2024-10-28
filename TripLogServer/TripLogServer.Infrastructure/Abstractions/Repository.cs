@@ -18,6 +18,11 @@ public abstract class Repository<T, Db> : IRepository<T> where T : class where D
         return entity.Where(expression).AsQueryable();
     }
 
+    public IQueryable<T> WhereNoTracking(Expression<Func<T, bool>> expression)
+    {
+        return entity.Where(expression).AsNoTracking().AsQueryable();
+    }
+
     public bool Any(Expression<Func<T, bool>> expression)
     {
         return entity.Any(expression);

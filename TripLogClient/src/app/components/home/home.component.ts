@@ -7,7 +7,9 @@ import { TripContentComponent } from "../trip-content/trip-content.component";
 import { CreateTripContentModel } from '../../models/create-trip-content.model';
 import { TripModel } from '../../models/trip.model';
 import { SwalService } from '../../services/swal.service';
-import { TripContent } from '../../models/trip-content.model';
+import { UpdateTripModel } from '../../models/update-trip.model';
+import { UpdateTripContentModel } from '../../models/update-trip-content.model';
+import { contentsImage, tripsImage } from '../../constants';
 
 @Component({
   selector: 'app-home',
@@ -26,15 +28,25 @@ export class HomeComponent implements OnInit {
   tripModel:TripModel[]=[];
 
   @ViewChildren(TripContentComponent) tripContentComponents !: QueryList<TripContentComponent>;
-  @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
-  @ViewChild("openModel") openModel : ElementRef<HTMLButtonElement> | undefined;
+  @ViewChildren(TripContentComponent) updateTripContentComponents !: QueryList<TripContentComponent>;
 
+
+  @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
+
+  tripsImage:string=tripsImage;
+  contentsImage:string=contentsImage;
 
   tripCounter:number=1;
   maxTripCounter:number=10;
   tripContents:number[]=[];
+  
+  updateTripContents:number[]=[];
 
   createTripModel:CreateTripModel=new CreateTripModel();
+  updateTripModel:UpdateTripModel=new UpdateTripModel();
+
+  imagePreview:string | ArrayBuffer | null = null;
+  updateImagePreview:string | ArrayBuffer | null = null;
 
   ngOnInit(): void {
     this.getAll();
@@ -77,15 +89,56 @@ export class HomeComponent implements OnInit {
     const file=event.target.files[0];
     if(file){
       this.createTripModel.image=file;
+      this.previewImage(file,true);
     }
+    else{
+        this.imagePreview="";
+    }
+  }
+
+  selectUpdateImage(event:any){
+    const file=event.target.files[0];
+    if(file){
+      this.updateTripModel.image=file;
+      this.previewImage(file,false);
+    }
+    else{
+      if(this.updateTripModel.imageUrl)
+      {
+        this.updateImagePreview=tripsImage+this.updateTripModel.imageUrl;
+      }
+      else
+      {
+        this.updateImagePreview="";
+      }
+    }
+  }
+
+  previewImage(file:File,creteOrUpdate:boolean){
+    const reader = new FileReader();
+    reader.onload = () =>{
+      if(creteOrUpdate)
+      {
+        this.imagePreview = reader.result;
+      }
+      else{
+        this.updateImagePreview= reader.result;
+      }
+    };
+    reader.readAsDataURL(file);
   }
 
   addTripPart(){
     if(this.tripContents.length<this.tripCounter){
       this.tripContents.push(this.tripCounter);
       this.tripCounter++;
-      console.log(this.tripContents);
     }
+  }
+
+  addUpdateTripPart(){
+    if(this.updateTripContents.length<this.tripCounter){
+      this.updateTripContents.push(this.tripCounter);
+      this.tripCounter++;    }
   }
 
   GetFromTag(tagName:string){
@@ -97,27 +150,63 @@ export class HomeComponent implements OnInit {
 
   cancelTrip(){
     this.createTripModel=new CreateTripModel;
+    this.updateTripModel=new UpdateTripModel;
+    this.imagePreview=null;
     this.tripContents= [];
+    this.updateTripContents=[]
   }
 
   openUpdateModal(trip:TripModel){
-    this.openModel?.nativeElement.click();
-    this.createTripModel.title=trip.title;
-    this.createTripModel.description=trip.description;
-    this.createTripModel.tags="";
-    this.createTripModel.tags= trip.tags.map(tag=>tag.name).join(" ");
+    this.updateTripModel.id=trip.id;
+    this.updateTripModel.title=trip.title;
+    this.updateTripModel.description=trip.description;
+    this.updateTripModel.tags="";
+    this.updateTripModel.tags= trip.tags.map(tag=>tag.name).join(" ");
+    this.updateTripModel.imageUrl=trip.imageUrl
+    this.updateImagePreview=tripsImage+this.updateTripModel.imageUrl;
 
-    this.tripContents=[];
+    this.updateTripContents=[];
     this.tripCounter=1;
 
     trip.tripContents.forEach((content,index) => {
-      this.addTripPart();
+      this.addUpdateTripPart();
       setTimeout(()=>{
-        const currentComponent = this.tripContentComponents.toArray()[index];
+        const currentComponent = this.updateTripContentComponents.toArray()[index];
         if(currentComponent){
-          currentComponent.setValues(content.title,content.description)
+          currentComponent.setValues(content.id,content.title,content.description,content.imageUrl)
         }
       });
     });
+  }
+
+  updateTrip(form:NgForm){
+    const allTripContents: UpdateTripContentModel[] = this.tripContentComponents.map(tripContent => {
+      return tripContent.getUpdateTripContentData();
+    });
+
+    this.updateTripModel.tripContents=allTripContents;
+
+    const formData = new FormData();
+
+    formData.append("id",this.updateTripModel.id);
+    formData.append("title",this.updateTripModel.title);
+    formData.append("description",this.updateTripModel.description);
+    formData.append("tags",this.updateTripModel.tags);
+    formData.append("image",this.updateTripModel.image);
+
+    this.updateTripModel.tripContents.forEach((content, index) => {
+      formData.append(`tripContents[${index}].id`, content.id);
+      formData.append(`tripContents[${index}].title`, content.title);
+      formData.append(`tripContents[${index}].description`, content.description);
+      formData.append(`tripContents[${index}].image`, content.image);
+    });
+
+    console.log(this.updateTripModel);
+
+    this.http.post("Trip/Update",formData,res=>{
+      this.modelCloseBtn?.nativeElement.click();
+      this.swal.callToast(this.createTripModel.title + " gezisi başarıyla güncellendi!","success");
+      this.getAll();
+    })
   }
 }

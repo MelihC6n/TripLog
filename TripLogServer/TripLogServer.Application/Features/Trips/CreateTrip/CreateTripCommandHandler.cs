@@ -17,11 +17,11 @@ internal sealed class CreateTripCommandHandler(
 
         foreach (var tags in tagList)
         {
-            if (!tagRepository.Any(t => t.Name == tags))
+            if (!tagRepository.Any(t => t.Name.ToLower() == tags.ToLower()))
             {
                 Tag tag = new()
                 {
-                    Name = tags
+                    Name = tags.ToLower()
                 };
                 await tagRepository.CreateAsync(tag, cancellationToken);
             }

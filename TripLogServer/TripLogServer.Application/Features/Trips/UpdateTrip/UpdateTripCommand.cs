@@ -1,0 +1,108 @@
+﻿using MediatR;
+using Microsoft.AspNetCore.Http;
+using System.Transactions;
+using TripLogServer.Application.Services;
+using TripLogServer.Domain.Entities;
+using TripLogServer.Domain.Repositories;
+using TS.Result;
+
+namespace TripLogServer.Application.Features.Trips.UpdateTrip;
+public sealed record UpdateTripCommand(
+    Guid Id,
+    string Title,
+    string Description,
+    IFormFile? Image,
+    string Tags,
+    List<UpdateTripContent> TripContents) : IRequest<Result<string>>;
+
+public sealed record UpdateTripContent(
+    Guid Id,
+    string Title,
+    string Description,
+    IFormFile? Image);
+
+internal sealed class UpdateTripCommandHandler(
+    ITagRepository tagRepository,
+    ITripContentRepository tripContentRepository,
+    ITripRepository tripRepository,
+    IImageService imageService) : IRequestHandler<UpdateTripCommand, Result<string>>
+{
+    public async Task<Result<string>> Handle(UpdateTripCommand request, CancellationToken cancellationToken)
+    {
+        using (var transaction = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+        {
+
+
+            var tagList = request.Tags.Split(' ', StringSplitOptions.RemoveEmptyEntries).ToList();
+
+            foreach (var tags in tagList)
+            {
+                if (!tagRepository.Any(t => t.Name.ToLower() == tags.ToLower()))
+                {
+                    Tag tag = new()
+                    {
+                        Name = tags.ToLower()
+                    };
+                    await tagRepository.CreateAsync(tag, cancellationToken);
+                }
+            }
+            var tripTags = tagRepository.Where(searchTags => tagList.Any(x => x == searchTags.Name)).ToList();
+
+            Trip? trip = tripRepository.FirstOrDefault(t => t.Id == request.Id);
+            if (trip != null)
+            {
+                foreach (var item in trip.Tags.ToList())
+                {
+                    trip.Tags.Remove(item);
+                }
+                await tripRepository.UpdateAsync(trip, cancellationToken);
+                trip.Tags = tripTags;
+
+                trip.Title = request.Title;
+                trip.Description = request.Description;
+                trip.CreatedDate = DateTime.Now;
+                if (request.Image != null)
+                {
+                    var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), request.Image.FileName);
+                    await imageService.SaveImageAsync(contentImagePath, "contents", request.Image);
+                    trip.ImageUrl = contentImagePath;
+                }
+
+                foreach (var content in trip.TripContents)
+                {
+                    UpdateTripContent updateTrip = request.TripContents.FirstOrDefault(cnt => cnt.Id == content.Id);
+
+                    content.Title = updateTrip.Title;
+                    content.Description = updateTrip.Description;
+                    if (updateTrip.Image != null)
+                    {
+                        var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), updateTrip.Image.FileName);
+                        await imageService.SaveImageAsync(contentImagePath, "contents", updateTrip.Image);
+                        content.ImageUrl = contentImagePath;
+                    }
+                }
+
+                await tripRepository.UpdateAsync(trip, cancellationToken);
+            }
+
+            List<UpdateTripContent> addContents = request.TripContents.Where(tc => tripContentRepository.Any(tr => tr.Id != tc.Id)).ToList();
+            foreach (var item in addContents)
+            {
+                var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), item.Image.FileName);
+                await imageService.SaveImageAsync(contentImagePath, "contents", item.Image);
+
+                TripContent tripContent = new()
+                {
+                    Title = item.Title,
+                    Description = item.Description,
+                    ImageUrl = contentImagePath,
+                    Trip = trip
+                };
+
+                await tripContentRepository.CreateAsync(tripContent, cancellationToken);
+            }
+            transaction.Complete();
+        }
+        return "Ok";
+    }
+}

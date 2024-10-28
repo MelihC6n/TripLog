@@ -5,6 +5,7 @@ namespace TripLogServer.Domain.Abstractions;
 public interface IRepository<T> where T : class
 {
     IQueryable<T> Where(Expression<Func<T, bool>> expression);
+    IQueryable<T> WhereNoTracking(Expression<Func<T, bool>> expression);
     bool Any(Expression<Func<T, bool>> expression);
     IQueryable<T> GetAll();
     Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken);
