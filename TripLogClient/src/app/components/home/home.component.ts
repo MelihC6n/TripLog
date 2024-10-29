@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
 
 
   @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild("updateModelCloseBtn") updateModelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
 
   tripsImage:string=tripsImage;
   contentsImage:string=contentsImage;
@@ -204,8 +205,8 @@ export class HomeComponent implements OnInit {
     console.log(this.updateTripModel);
 
     this.http.post("Trip/Update",formData,res=>{
-      this.modelCloseBtn?.nativeElement.click();
-      this.swal.callToast(this.createTripModel.title + " gezisi başarıyla güncellendi!","success");
+      this.updateModelCloseBtn?.nativeElement.click();
+      this.swal.callToast(this.updateTripModel.title + " gezisi başarıyla güncellendi!","success");
       this.getAll();
     })
   }

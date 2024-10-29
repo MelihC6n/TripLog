@@ -44,29 +44,31 @@ internal sealed class TripRepository : Repository<Trip, ApplicationDbContext>, I
 
     public Trip? FirstOrDefault(Expression<Func<Trip, bool>> expression)
     {
-        return _context.Include(t => t.TripContents).Include(t => t.Tags).Select(t =>
-        new Trip
-        {
-            Id = t.Id,
-            Title = t.Title,
-            Description = t.Description,
-            ImageUrl = t.ImageUrl,
-            CreatedDate = t.CreatedDate,
+        return _context.Include(t => t.TripContents).Include(t => t.Tags)
+        //    .Select(t =>
+        //new Trip
+        //{
+        //    Id = t.Id,
+        //    Title = t.Title,
+        //    Description = t.Description,
+        //    ImageUrl = t.ImageUrl,
+        //    CreatedDate = t.CreatedDate,
 
-            Tags = t.Tags.Select(x => new Tag
-            {
-                Id = x.Id,
-                Name = x.Name
-            }).ToList(),
+        //    Tags = t.Tags.Select(x => new Tag
+        //    {
+        //        Id = x.Id,
+        //        Name = x.Name
+        //    }).ToList(),
 
-            TripContents = t.TripContents.Select(z => new TripContent
-            {
-                Id = z.Id,
-                Title = z.Title,
-                Description = z.Description,
-                ImageUrl = z.ImageUrl
-            }).ToList()
+        //    TripContents = t.TripContents.Select(z => new TripContent
+        //    {
+        //        Id = z.Id,
+        //        Title = z.Title,
+        //        Description = z.Description,
+        //        ImageUrl = z.ImageUrl
+        //    }).ToList()
 
-        }).FirstOrDefault(expression);
+        //})
+            .FirstOrDefault(expression);
     }
 }
