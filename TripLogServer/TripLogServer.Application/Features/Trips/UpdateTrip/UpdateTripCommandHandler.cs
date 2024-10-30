@@ -67,6 +67,7 @@ internal sealed class UpdateTripCommandHandler(
             {
                 var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), request.Image.FileName);
                 await imageService.SaveImageAsync(contentImagePath, "trips", request.Image);
+                await imageService.DeleteImageAsync(trip.ImageUrl, "trips");
                 trip.ImageUrl = contentImagePath;
             }
 
@@ -80,6 +81,7 @@ internal sealed class UpdateTripCommandHandler(
                 {
                     var contentImagePath = string.Join('.', DateTime.Now.ToFileTime().ToString(), updateTrip.Image.FileName);
                     await imageService.SaveImageAsync(contentImagePath, "contents", updateTrip.Image);
+                    await imageService.DeleteImageAsync(content.ImageUrl, "contets");
                     content.ImageUrl = contentImagePath;
                 }
             }
