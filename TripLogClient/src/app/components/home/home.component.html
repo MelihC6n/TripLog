@@ -14,6 +14,28 @@
         <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form> -->
+        @if(test){
+          <button type="button" class="btn btn-outline-light btn-lg btn-light-big me-2" style="display: flex; align-items: center; padding: 6px 22px;" data-bs-toggle="modal" data-bs-target="#loginModal" (click)="changeTest()">
+            <div>
+              <p class="avatar-login-text"><i class="fa-solid fa-plane-arrival me-2"></i>Giriş Yap</p>
+            </div>
+          </button>
+        }
+        @else {
+          <div class="dropdown">
+            <button class="btn btn-outline-light btn-lg btn-light-big me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center; padding: 6px 12px;">
+              <div class="avatar-login">
+                M
+               </div> 
+               <div>
+                 <p class="avatar-login-text dropdown-toggle">Melih Can</p>
+               </div>
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" (click)="changeTest()"><i class="fa-solid fa-plane-departure me-2"></i>Çıkış Yap</a></li>
+            </ul>
+          </div>
+        }
         <button type="button" class="btn btn-light btn-light-big" data-bs-toggle="modal" #openModel data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
       </div>
     </div>
@@ -222,7 +244,7 @@
   </div>
 <!-- Create Model End -->
 
-<!-- Update Madel Start -->
+<!-- Update Model Start -->
 
 <div class="modal fade" id="updateTripModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -270,4 +292,108 @@
   </div>
 </div>
 
-<!-- Update Madel End -->
+<!-- Update Model End -->
+
+<!-- Login Model Start-->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content ">
+      <div class="modal-header text-center">
+        <h1 class="modal-title w-100" id="loginModalLabel">Giriş Yap</h1>
+        <button type="button" #loginModalCloseBtn class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="card-body">
+              <form #loginForm="ngForm" autocomplete="off">
+                  <div class="form-group">
+                      <label for="userNameOrEmail">Username or Email</label>
+                      <input type="text" class="form-control" name="userNameOrEmail" required minlength="3">
+                      <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="form-group mt-2 position-relative">
+                      <label for="">Şifre</label>
+                      <input type="password" #password class="form-control" name="password" required value="123asd">
+
+                      @if (password.type==="password") {
+                          <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
+                      }@else {
+                          <i class="fa-solid fa-eye-slash eye" (click)="showOrHidePassword($event)"></i>
+                      }
+                  </div>
+                  <div class="w-100 mt-2 text-center">
+                    <span class="me-2">Hesabınız Yok Mu :</span> <a href="#" data-bs-target="#registerModal" data-bs-toggle="modal">Hesap Oluştur</a>
+                  </div>
+                  <div class="form-group mt-2">
+                      <button type="submit" class="btn btn-outline-light more-content w-100">
+                          <i class="fa-solid fa-lock me-1"></i>
+                          Giriş Yap
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Login Model End -->
+
+<!-- Register Model Start-->
+<div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content ">
+      <div class="modal-header text-center">
+        <h1 class="modal-title w-100" id="registerModalLabel">Kayıt Ol</h1>
+        <button type="button" #registerModalCloseBtn class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <div class="card-body">
+              <form formValidate #registerForm="ngForm" autocomplete="off">
+                  Yazar Olmak İstiyor Musunuz?
+                  <br>
+                  <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                  <label class="btn btn-outline-danger w-100" for="btn-check-outlined" (click)="changeText($event)">Yazar Olmak İstemiyorum...</label><br>
+                  <div class="form-group mt-2">
+                      <label for="userNameOrEmail">Username</label>
+                      <input type="text" class="form-control" name="userName" required minlength="3">
+                      <div class="invalid-feedback"></div>
+                  </div>
+                  <div class="form-group mt-2">
+                    <label for="userNameOrEmail">Email</label>
+                    <input type="text" class="form-control" name="userEmail" required minlength="3">
+                    <div class="invalid-feedback"></div>
+                  </div>
+
+                  <div class="form-group mt-2 position-relative">
+                      <label for="">Şifre</label>
+                      <input type="password" #password class="form-control" name="registerPassword" required value="123asd">
+                      @if (password.type==="password") {
+                          <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
+                      }@else {
+                          <i class="fa-solid fa-eye-slash eye" (click)="showOrHidePassword($event)"></i>
+                      }
+                  </div>
+                  <div class="form-group mt-2 position-relative">
+                    <label for="">Şifre Tekrar</label>
+                    <input type="password" #password class="form-control" name="registerPasswordCheck" required value="123asd">
+                    @if (password.type==="password") {
+                        <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
+                    }@else {
+                        <i class="fa-solid fa-eye-slash eye" (click)="showOrHidePassword($event)"></i>
+                    }
+                  </div>
+                  <div class="w-100 mt-2 text-center">
+                    <span class="me-2">Hesabınız Var Mı :</span> <a href="#" data-bs-target="#loginModal" data-bs-toggle="modal">Giriş Yap</a>
+                  </div>
+                  <div class="form-group mt-2">
+                      <button type="submit" class="btn btn-outline-light more-content w-100">
+                          <i class="fa-solid fa-lock me-1"></i>
+                          Kayıt Ol
+                      </button>
+                  </div>
+              </form>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Register Model End -->

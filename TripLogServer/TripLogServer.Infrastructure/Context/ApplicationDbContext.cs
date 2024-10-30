@@ -11,4 +11,13 @@ public sealed class ApplicationDbContext : DbContext
     DbSet<Trip> Trips { get; set; }
     DbSet<Tag> Tags { get; set; }
     DbSet<TripContent> TripContents { get; set; }
+
+    DbSet<AppUser> AppUsers { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+
+        builder.Entity<AppUser>().HasKey(x => x.Id);
+    }
 }

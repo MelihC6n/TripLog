@@ -43,11 +43,48 @@ export class HomeComponent implements OnInit {
   
   updateTripContents:number[]=[];
 
+  test:boolean=true;
+
   createTripModel:CreateTripModel=new CreateTripModel();
   updateTripModel:UpdateTripModel=new UpdateTripModel();
 
   imagePreview:string | ArrayBuffer | null = null;
   updateImagePreview:string | ArrayBuffer | null = null;
+
+  changeTest(){
+    if(this.test)
+    {
+      this.test=false;
+    }
+    else{
+      this.test=true;
+    }
+  }
+
+  showOrHidePassword(event: Event){
+    const input = event.target as HTMLElement;
+    const password = input.previousElementSibling as HTMLInputElement;
+    if(password===undefined) return;
+
+    if(password.type==="password"){
+      password.type="text";
+    }
+    else{
+      password.type="password";
+    }
+  }
+
+  changeText(event: Event){
+    const label = event.target as HTMLElement;
+    if(label===undefined) return;
+
+    if(label.innerText==="Yazar Olmak İstiyorum!"){
+      label.innerText="Yazar Olmak İstemiyorum...";
+    }
+    else{
+      label.innerText="Yazar Olmak İstiyorum!";
+    }
+  }
 
   ngOnInit(): void {
     this.getAll();
