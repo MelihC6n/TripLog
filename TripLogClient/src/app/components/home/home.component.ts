@@ -210,4 +210,15 @@ export class HomeComponent implements OnInit {
       this.getAll();
     })
   }
+
+  deleteTrip(id:string,title:string){
+    this.swal.callSwal("Gezi Silme Onayı!",title + " isimli gezi silinecek emin misiniz?",() => {
+      this.http.post("Trip/Delete",{
+        id
+      },res=>{
+        this.swal.callToast(res.data,'info');
+        this.getAll();
+      });
+    });
+  }
 }

@@ -23,7 +23,7 @@
 <!--  -->
     @for (trip of tripModel; track trip) {
 
-      <div class="card" style="width: auto;">
+      <div class="card" style="width: 100%;">
 
           <div class="card-main">
               <div class="card-left">            
@@ -44,7 +44,7 @@
                     }
                         <br><br>
                         <a href="#" style="width: 100%;" class="btn btn-light more-content" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto; ">Daha Fazlası İçin 🔽</a>
-                        <i class="fa-solid fa-x mt-1 me-2 edit-button" style="background-color:red;" title="Delete This Post"></i>
+                        <i class="fa-solid fa-x mt-1 me-2 edit-button" style="background-color:red;" title="Delete This Post" (click)="deleteTrip(trip.id,trip.title)"></i>
                         <i class="fa-solid fa-pen-nib mt-1 me-2 edit-button" style="padding: 12px 13px; background-color: rgb(0, 192, 134);" title="Edit This Post" (click)="openUpdateModal(trip)" data-bs-toggle="modal" #openModel data-bs-target="#updateTripModal"></i>
                     </div>
                   </div>

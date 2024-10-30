@@ -18,4 +18,14 @@ internal sealed class ImageService : IImageService
             fileData.CopyTo(stream);
         }
     }
+
+    public async Task DeleteImageAsync(string imagePath, string folder)
+    {
+        var root = _webHostEnvironment.WebRootPath;
+        var filePath = System.IO.Path.Combine(root, folder, imagePath);
+        if (System.IO.File.Exists(filePath))
+        {
+            System.IO.File.Delete(filePath);
+        }
+    }
 }
