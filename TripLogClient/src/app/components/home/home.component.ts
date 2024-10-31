@@ -10,6 +10,8 @@ import { SwalService } from '../../services/swal.service';
 import { UpdateTripModel } from '../../models/update-trip.model';
 import { UpdateTripContentModel } from '../../models/update-trip-content.model';
 import { contentsImage, tripsImage } from '../../constants';
+import { CreateUserModel } from '../../models/create-user.model';
+import { LoginModel } from '../../models/login.model';
 
 @Component({
   selector: 'app-home',
@@ -50,6 +52,9 @@ export class HomeComponent implements OnInit {
   createTripModel:CreateTripModel=new CreateTripModel();
   updateTripModel:UpdateTripModel=new UpdateTripModel();
 
+  createUserModel:CreateUserModel=new CreateUserModel();
+  loginModel:LoginModel=new LoginModel();
+
   imagePreview:string | ArrayBuffer | null = null;
   updateImagePreview:string | ArrayBuffer | null = null;
 
@@ -82,9 +87,11 @@ export class HomeComponent implements OnInit {
 
     if(label.innerText==="Yazar Olmak İstiyorum!"){
       label.innerText="Yazar Olmak İstemiyorum...";
+      this.createUserModel.isAuthor=false;
     }
     else{
       label.innerText="Yazar Olmak İstiyorum!";
+      this.createUserModel.isAuthor=true;
     }
   }
 
@@ -272,5 +279,21 @@ export class HomeComponent implements OnInit {
         this.getAll();
       });
     });
+  }
+
+  createUser(registerForm:NgForm){
+    this.http.post("User/Create",this.createUserModel,res=>{
+      if(res.data!=null)
+      {
+        this.swal.callToast(res.data,"success");
+      }
+    })
+  }
+
+  signIn(loginForm:NgForm){
+    this.http.post("Auth/Login",this.loginModel,res=>{
+      localStorage.setItem("token",res.data?.token);
+      this.swal.callToast("Hoş geldiniz!",'info');
+    })
   }
 }

@@ -12,7 +12,7 @@ export class ErrorService {
   ) { }
 
   errorHandler(err:HttpErrorResponse){
-    let message="Error";
+    let message="Hata";
 
     if(err.status===0){
       message+=" : API is not avaliable!";
@@ -24,7 +24,7 @@ export class ErrorService {
       message+=" : API is not found!"
     }
     else if(err.status===500){
-      message=" : ";
+      message+=" : ";
       for(const e of err.error.errorMessages){
         message += e +"\n";
         console.log(e);

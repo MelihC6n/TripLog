@@ -304,15 +304,15 @@
       </div>
       <div class="modal-body">
           <div class="card-body">
-              <form #loginForm="ngForm" autocomplete="off">
+              <form #loginForm="ngForm" autocomplete="off" (ngSubmit)="signIn(loginForm)">
                   <div class="form-group">
                       <label for="userNameOrEmail">Kullanıcı Adı veya Email</label>
-                      <input type="text" class="form-control" name="userNameOrEmail" required minlength="3" value="melhc6n">
+                      <input type="text" class="form-control" [(ngModel)]="loginModel.userNameOrEmail"  name="userNameOrEmail" required minlength="3">
                       <div class="invalid-feedback"></div>
                   </div>
                   <div class="form-group mt-2 position-relative">
                       <label for="">Şifre</label>
-                      <input type="password" #password class="form-control" name="password" required value="123asd">
+                      <input type="password" #password class="form-control" [(ngModel)]="loginModel.password" name="password" required>
 
                       @if (password.type==="password") {
                           <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
@@ -347,24 +347,24 @@
       </div>
       <div class="modal-body">
           <div class="card-body">
-              <form formValidate #registerForm="ngForm" autocomplete="off">
+              <form formValidate #registerForm="ngForm" autocomplete="off" (ngSubmit)="createUser(registerForm)">
                     <p class="mb-1">Yazar Olmak İstiyor Musunuz?</p>
                     <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
                     <label class="btn btn-outline-danger w-100" for="btn-check-outlined" (click)="changeText($event)">Yazar Olmak İstemiyorum...</label>
                   <div class="form-group mt-2">
                       <label for="userNameOrEmail">Kullanıcı Adı</label>
-                      <input type="text" class="form-control" name="userName" required minlength="3">
+                      <input type="text" [(ngModel)]="createUserModel.userName" class="form-control" name="userName" required minlength="3">
                       <div class="invalid-feedback"></div>
                   </div>
                   <div class="form-group mt-2">
                     <label for="userNameOrEmail">Email</label>
-                    <input type="text" class="form-control" name="userEmail" required minlength="3">
+                    <input type="text" class="form-control" [(ngModel)]="createUserModel.email" name="userEmail" required minlength="3">
                     <div class="invalid-feedback"></div>
                   </div>
 
                   <div class="form-group mt-2 position-relative">
                       <label for="">Şifre</label>
-                      <input type="password" #password2 class="form-control" name="registerPassword" required>
+                      <input type="password" #password2 [(ngModel)]="createUserModel.password" class="form-control" name="registerPassword" required>
                       @if (password2.type==="password") {
                           <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
                       }@else {
@@ -373,7 +373,7 @@
                   </div>
                   <div class="form-group mt-2 position-relative">
                     <label for="">Şifre Tekrar</label>
-                    <input type="password" #password3 class="form-control" name="registerPasswordCheck" required>
+                    <input type="password" #password3 [(ngModel)]="createUserModel.passwordCheck" class="form-control" name="registerPasswordCheck" required>
                     @if (password3.type==="password") {
                         <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
                     }@else {

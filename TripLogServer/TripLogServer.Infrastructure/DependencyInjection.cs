@@ -32,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<ITripContentRepository, TripContentRepository>();
         services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IJwtProvider, JwtProvider>();
         return services;
     }
 }
