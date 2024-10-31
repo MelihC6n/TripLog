@@ -1,11 +1,12 @@
 <div class="tripContent">
-    <h6>{{tripCounter}}. Alt Başlık:</h6>
+    <i class="fa-solid fa-x delete-component-button" style="background-color:red;" (click)="deleteThisPart()" title="Bu içeriği sil."></i>
+    <h6>{{tripIndex}}. Alt Başlık:</h6>
     <input type="text" name="title" class="form-control" [(ngModel)]="title" placeholder="Resim başlığı giriniz.">
     <br>
-    <h6>{{tripCounter}}. Alt Açıklama:</h6>
+    <h6>{{tripIndex}}. Alt Açıklama:</h6>
     <textarea type="text" name="description" class="form-control" [(ngModel)]="description" placeholder="Resim açıklaması giriniz." rows="3"></textarea>
     <br>
-    <h6>{{tripCounter}}. Alt Resim:</h6>
+    <h6>{{tripIndex}}. Alt Resim:</h6>
     <input type="file" name="image" class="form-control" (change)="selectImage($event)" placeholder="Resim ekleyiniz.">
     <br>
     @if(imagePreview){

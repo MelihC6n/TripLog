@@ -44,6 +44,8 @@ export class HomeComponent implements OnInit {
   updateTripContents:number[]=[];
 
   test:boolean=true;
+  result:number=0;
+
 
   createTripModel:CreateTripModel=new CreateTripModel();
   updateTripModel:UpdateTripModel=new UpdateTripModel();
@@ -179,6 +181,18 @@ export class HomeComponent implements OnInit {
       this.tripCounter++;    }
   }
 
+  deleteTripPart(index:number){
+    this.tripContents.splice(index,1);
+    this.tripCounter--;
+    this.createTripModel.tripContents?.splice(index,1);
+  }
+
+  deleteUpdateTripPart(index:number){
+    this.updateTripContents.splice(index,1);
+    this.tripCounter--;
+    this.updateTripModel.tripContents?.splice(index,1);
+  }
+
   GetFromTag(tagName:string){
     this.http.post<TripModel>("Trip/GetFromTag",{
       TagName:tagName},res=>{
@@ -192,6 +206,7 @@ export class HomeComponent implements OnInit {
     this.imagePreview=null;
     this.tripContents= [];
     this.updateTripContents=[]
+    this.tripCounter=1;
   }
 
   openUpdateModal(trip:TripModel){

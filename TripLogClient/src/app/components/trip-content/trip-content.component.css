@@ -1,0 +1,10 @@
+.delete-component-button{
+    margin-block-start: -10px;
+    cursor: pointer; 
+    padding: 8px 9px; 
+    width: 30px; 
+    height: 30px; 
+    border-radius: 20%; 
+    float: right; 
+    color: white;
+}

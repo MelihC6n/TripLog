@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CreateTripContentModel } from '../../models/create-trip-content.model';
 import { FormsModule } from '@angular/forms';
 import { UpdateTripContentModel } from '../../models/update-trip-content.model';
@@ -14,6 +14,9 @@ import { contentsImage } from '../../constants';
 })
 export class TripContentComponent {
   @Input() tripCounter!:number;
+  @Input() tripIndex!:number;
+  @Output() remove = new EventEmitter<void>()
+
   id:string="";
   title:string="";
   description:string="";
@@ -22,6 +25,10 @@ export class TripContentComponent {
   imagePreview:string | ArrayBuffer | null = null;
 
   contentsImage:string = contentsImage;
+
+  deleteThisPart(){
+    this.remove.emit();
+  }
 
   selectImage(event:any){
     const file=event.target.files[0];

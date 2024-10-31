@@ -30,6 +30,6 @@ export class ErrorService {
         console.log(e);
       }
     }
-    this.Swal.callToast("message",'error');
+    this.Swal.callToast(message,'error');
   }
 }

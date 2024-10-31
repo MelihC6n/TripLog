@@ -228,8 +228,8 @@
           <hr class="border-3">
 
           <div id="tripPhotos">
-            @for (item of tripContents; track $index) {
-              <app-trip-content [tripCounter]="item"></app-trip-content>
+            @for (item of tripContents; track item) {
+              <app-trip-content [tripCounter]="item" [tripIndex]="$index+1" (remove)="deleteTripPart($index)"></app-trip-content>
             }
           </div>
           <div class="modal-footer">
@@ -278,7 +278,7 @@
 
         <div id="tripPhotos">
           @for (item of updateTripContents; track $index) {
-            <app-trip-content [tripCounter]="item"></app-trip-content>
+            <app-trip-content [tripCounter]="item" [tripIndex]="$index+1" (remove)="deleteUpdateTripPart($index)"></app-trip-content>
           }
         </div>
         <div class="modal-footer">
@@ -306,8 +306,8 @@
           <div class="card-body">
               <form #loginForm="ngForm" autocomplete="off">
                   <div class="form-group">
-                      <label for="userNameOrEmail">Username or Email</label>
-                      <input type="text" class="form-control" name="userNameOrEmail" required minlength="3">
+                      <label for="userNameOrEmail">Kullanıcı Adı veya Email</label>
+                      <input type="text" class="form-control" name="userNameOrEmail" required minlength="3" value="melhc6n">
                       <div class="invalid-feedback"></div>
                   </div>
                   <div class="form-group mt-2 position-relative">
@@ -348,12 +348,11 @@
       <div class="modal-body">
           <div class="card-body">
               <form formValidate #registerForm="ngForm" autocomplete="off">
-                  Yazar Olmak İstiyor Musunuz?
-                  <br>
-                  <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-                  <label class="btn btn-outline-danger w-100" for="btn-check-outlined" (click)="changeText($event)">Yazar Olmak İstemiyorum...</label><br>
+                    <p class="mb-1">Yazar Olmak İstiyor Musunuz?</p>
+                    <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                    <label class="btn btn-outline-danger w-100" for="btn-check-outlined" (click)="changeText($event)">Yazar Olmak İstemiyorum...</label>
                   <div class="form-group mt-2">
-                      <label for="userNameOrEmail">Username</label>
+                      <label for="userNameOrEmail">Kullanıcı Adı</label>
                       <input type="text" class="form-control" name="userName" required minlength="3">
                       <div class="invalid-feedback"></div>
                   </div>
@@ -365,8 +364,8 @@
 
                   <div class="form-group mt-2 position-relative">
                       <label for="">Şifre</label>
-                      <input type="password" #password class="form-control" name="registerPassword" required value="123asd">
-                      @if (password.type==="password") {
+                      <input type="password" #password2 class="form-control" name="registerPassword" required>
+                      @if (password2.type==="password") {
                           <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
                       }@else {
                           <i class="fa-solid fa-eye-slash eye" (click)="showOrHidePassword($event)"></i>
@@ -374,8 +373,8 @@
                   </div>
                   <div class="form-group mt-2 position-relative">
                     <label for="">Şifre Tekrar</label>
-                    <input type="password" #password class="form-control" name="registerPasswordCheck" required value="123asd">
-                    @if (password.type==="password") {
+                    <input type="password" #password3 class="form-control" name="registerPasswordCheck" required>
+                    @if (password3.type==="password") {
                         <i class="fa-solid fa-eye eye" (click)="showOrHidePassword($event)"></i>
                     }@else {
                         <i class="fa-solid fa-eye-slash eye" (click)="showOrHidePassword($event)"></i>
