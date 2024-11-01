@@ -14,8 +14,8 @@
         <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         </form> -->
-        @if(test){
-          <button type="button" class="btn btn-outline-light btn-lg btn-light-big me-2" style="display: flex; align-items: center; padding: 6px 22px;" data-bs-toggle="modal" data-bs-target="#loginModal" (click)="changeTest()">
+        @if(!activeUser){
+          <button type="button" #loginModalBtn class="btn btn-outline-light btn-lg btn-light-big me-2" style="display: flex; align-items: center; padding: 6px 22px; margin-right: 120px !important;" data-bs-toggle="modal" data-bs-target="#loginModal">
             <div>
               <p class="avatar-login-text"><i class="fa-solid fa-plane-arrival me-2"></i>Giriş Yap</p>
             </div>
@@ -23,20 +23,23 @@
         }
         @else {
           <div class="dropdown">
-            <button class="btn btn-outline-light btn-lg btn-light-big me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center; padding: 6px 12px;">
+            <button class="btn btn-outline-light btn-lg btn-light-big me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center; padding: 6px 12px;" [style.margin-right]="activeUser.isAuthor ? '' : '120px !important'">
               <div class="avatar-login">
-                M
+                {{activeUser.userName[0]}}
                </div> 
                <div>
-                 <p class="avatar-login-text dropdown-toggle">Melih Can</p>
+                 <p class="avatar-login-text dropdown-toggle">{{activeUser.userName}}</p>
                </div>
             </button>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" (click)="changeTest()"><i class="fa-solid fa-plane-departure me-2"></i>Çıkış Yap</a></li>
+              <li><a class="dropdown-item" href="#" (click)="singOut()" ><i class="fa-solid fa-plane-departure me-2"></i>Çıkış Yap</a></li>
             </ul>
           </div>
         }
-        <button type="button" class="btn btn-light btn-light-big" data-bs-toggle="modal" #openModel data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
+
+        @if(activeUser?.isAuthor==true){
+          <button type="button" class="btn btn-light btn-light-big" data-bs-toggle="modal" #openModel data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
+        }
       </div>
     </div>
   </nav>
@@ -182,10 +185,11 @@
                     <div class="add-comment mt-2">
                       <div class="card card-body">
                         <h5>Leave A Comment!</h5>
-                        <textarea class="form-control" name="comment" rows="2" style="resize: none;"></textarea>
-                        <button class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;">Send Comment</button>
+                        <textarea class="form-control" (click)="commentAccount()" name="comment" rows="2" style="resize: none;"></textarea>
+                        <button class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" (click)="activeUser ? sendComment() : commentAccount()">Send Comment</button>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>

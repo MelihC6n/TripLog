@@ -12,6 +12,8 @@ import { UpdateTripContentModel } from '../../models/update-trip-content.model';
 import { contentsImage, tripsImage } from '../../constants';
 import { CreateUserModel } from '../../models/create-user.model';
 import { LoginModel } from '../../models/login.model';
+import { UserModel } from '../../models/user.model';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private http:HttpService,
-    private swal:SwalService
+    private swal:SwalService,
+    private auth:AuthService
   ){}
 
   tripModel:TripModel[]=[];
@@ -35,6 +38,8 @@ export class HomeComponent implements OnInit {
 
   @ViewChild("modelCloseBtn") modelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
   @ViewChild("updateModelCloseBtn") updateModelCloseBtn : ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild("loginModalCloseBtn") loginModalCloseBtn:ElementRef<HTMLButtonElement> | undefined;
+  @ViewChild("loginModalBtn") loginModalBtn:ElementRef<HTMLButtonElement> | undefined;
 
   tripsImage:string=tripsImage;
   contentsImage:string=contentsImage;
@@ -44,8 +49,6 @@ export class HomeComponent implements OnInit {
   tripContents:number[]=[];
   
   updateTripContents:number[]=[];
-
-  test:boolean=true;
   result:number=0;
 
 
@@ -54,19 +57,10 @@ export class HomeComponent implements OnInit {
 
   createUserModel:CreateUserModel=new CreateUserModel();
   loginModel:LoginModel=new LoginModel();
+  activeUser:null|UserModel=null;
 
   imagePreview:string | ArrayBuffer | null = null;
   updateImagePreview:string | ArrayBuffer | null = null;
-
-  changeTest(){
-    if(this.test)
-    {
-      this.test=false;
-    }
-    else{
-      this.test=true;
-    }
-  }
 
   showOrHidePassword(event: Event){
     const input = event.target as HTMLElement;
@@ -96,6 +90,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.singHello();
     this.getAll();
   }
 
@@ -292,8 +287,32 @@ export class HomeComponent implements OnInit {
 
   signIn(loginForm:NgForm){
     this.http.post("Auth/Login",this.loginModel,res=>{
-      localStorage.setItem("token",res.data?.token);
-      this.swal.callToast("Hoş geldiniz!",'info');
+    localStorage.setItem("token",res.data?.token); 
+    this.loginModalCloseBtn?.nativeElement.click();
+    this.singHello();
     })
+  }
+
+  singHello(){
+    this.activeUser = this.auth.isUserActive();
+    if(this.activeUser){
+      this.swal.callToast("Hoş geldin "+ this.activeUser?.userName+"!",'info');
+    }
+  }
+
+  singOut(){
+    localStorage.removeItem("token");
+    this.activeUser = this.auth.isUserActive();
+  }
+
+  commentAccount(){
+    if(!this.activeUser){
+      this.loginModalBtn?.nativeElement.click();
+      this.swal.callToast("Yorum yazmak için giriş yapmalısınız!",'warning');
+    }
+  }
+
+  sendComment(){
+    
   }
 }
