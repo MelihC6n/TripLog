@@ -13,4 +13,7 @@ public sealed class Trip
     public DateTime CreatedDate { get; set; }
     public ICollection<Tag>? Tags { get; set; }
     public ICollection<TripContent>? TripContents { get; set; }
+    public string AppUserId { get; set; }
+    public AppUser? AppUser { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
 }

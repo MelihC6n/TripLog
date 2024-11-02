@@ -48,7 +48,7 @@
 <!--  -->
     @for (trip of tripModel; track trip) {
 
-      <div class="card" style="width: 100%;">
+      <div class="card posts" style="width: 100%;">
 
           <div class="card-main">
               <div class="card-left">            
@@ -77,12 +77,12 @@
           </div>
   
              <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between; flex-wrap: wrap; flex-direction: row;">
-
-              <div class="contentSide" style="flex: 3rem;">
-
-                <div class="accordion-item" style="border-radius: 0px 0px 0px 5px ;">
-                  <h2 class="accordion-header"></h2>
-                    <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+               <div class="contentSide" style="flex: 3rem;">
+                 
+                 <div class="accordion-item" style="border-radius: 0px 0px 0px 5px ;">
+                   <h2 class="accordion-header"></h2>
+                   <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                      <hr style="margin: 0px; padding: 0px; width: 98%; float: right;">
                       <div class="accordion-body">
                         <div id="carousel{{$index}}" class="carousel slide">
                           <div class="carousel-inner">
@@ -114,7 +114,8 @@
               <div class="commentSide" style="flex: 1rem; height: auto; width: auto;">
       
                 <div class="collapse" id="collapse{{$index}}">
-                  <div class="card card-body" style="width: auto; height: 734px; border-radius: 0px 0px 5px 0px;">
+                  <hr style="margin: 0px; padding: 0px; width: 100%;">
+                  <div class="card card-body comment-place" style="width: auto; height: 734px; border-radius: 0px 0px 5px 0px;">
                     <h5>Comment Area</h5>
                   
                     <!-- Yorum listesi -->

@@ -11,7 +11,7 @@ public sealed class ApplicationDbContext : DbContext
     DbSet<Trip> Trips { get; set; }
     DbSet<Tag> Tags { get; set; }
     DbSet<TripContent> TripContents { get; set; }
-
+    DbSet<Comment> Comments { get; set; }
     DbSet<AppUser> AppUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
