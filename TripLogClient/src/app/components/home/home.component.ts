@@ -97,6 +97,8 @@ export class HomeComponent implements OnInit {
   getAll(){
     this.http.post<TripModel>("Trip/GetAll",{},res=>{
       this.tripModel=res.data;
+      console.log(res.data);
+      console.log(this.tripModel);
     })
   }
 
