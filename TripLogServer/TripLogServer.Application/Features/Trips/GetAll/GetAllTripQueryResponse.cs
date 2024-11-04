@@ -8,7 +8,8 @@ public sealed record GetAllTripQueryResponse(
     string AppUserId,
     List<QueryTags> Tags,
     List<QueryTripContents> TripContents,
-    QueryAppUser AppUser);
+    QueryAppUser AppUser,
+    IOrderedEnumerable<QueryComment> Comments);
 
 public sealed record QueryTags(
     Guid Id,
@@ -25,3 +26,9 @@ public sealed record QueryAppUser(
      string Email,
      string UserName,
      bool IsAuthor);
+
+public sealed record QueryComment(
+     Guid Id,
+     string Text,
+     DateTime CreatedAt,
+     QueryAppUser AppUser);

@@ -31,6 +31,7 @@ public static class DependencyInjection
         services.AddScoped<ITripRepository, TripRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<ITripContentRepository, TripContentRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<IJwtProvider, JwtProvider>();
         return services;

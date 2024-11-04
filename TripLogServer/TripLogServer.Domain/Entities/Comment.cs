@@ -4,6 +4,7 @@ public sealed class Comment
     public Comment()
     {
         Id = Guid.NewGuid();
+        CreatedAt = DateTime.Now;
     }
     public Guid Id { get; set; }
     public string Text { get; set; } = default!;

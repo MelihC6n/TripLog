@@ -124,73 +124,33 @@
                     <!-- Yorum listesi -->
                     <div class="list-group p-1" style="overflow-y: auto; height: 500px; border: 1px;">
                       <!-- Yorumlara For -->
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
+                       @if(trip.comments.length===0){
+                        <div class="list-group-item">
+                          <strong>Bu geziye henüz kimse yorum yapmadı, ilk yorumu sen alabilirsin!</strong>
                         </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
-
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
-                        </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
-
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
-                        </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
-
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
-                        </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
-
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
-                        </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
-
-                      <div class="list-group-item">
-                        <div class="avatar">
-                          B
-                        </div>
-                          <div class="comment-content">
-                            <strong>Brenda Lee</strong>
-                            <p class="mb-0">Bu makaleyi çok bilgilendirici buldum, teşekkürler!</p>
-                          </div>
-                      </div>
+                       }
+                       @for (comment of trip.comments; track $index) {
+                         <div class="list-group-item">
+                           <div class="avatar">
+                              {{comment.appUser.userName[0]}}
+                           </div>
+                             <div class="comment-content">
+                               <strong>{{comment.appUser.userName}}</strong>
+                               <p style="position: absolute; right: 5px; top: 8px; opacity: 50%;">{{ getRelativeTime(comment.createdAt)}}</p>
+                               <p class="mb-0">{{comment.text}}</p>
+                             </div> 
+                         </div>
+                       }
 
                     </div>
 
                     <div class="add-comment mt-2">
                       <div class="card card-body">
                         <h5>Leave A Comment!</h5>
-                        <textarea class="form-control" (click)="commentAccount()" name="comment" rows="2" style="resize: none;"></textarea>
-                        <button class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" (click)="activeUser ? sendComment() : commentAccount()">Send Comment</button>
+                        <form autocomplete="off" #commentForm="ngForm" (ngSubmit)="sendComment(commentForm,trip.id)">
+                          <textarea class="form-control" [(ngModel)]="sendCommentModel.text" (click)="commentAccount()" name="comment" rows="2" style="resize: none;"></textarea>
+                          <button type="submit" class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" >Send Comment</button>
+                        </form>
                       </div>
                     </div>
                     

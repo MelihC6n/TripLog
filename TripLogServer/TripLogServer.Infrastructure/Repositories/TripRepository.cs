@@ -16,7 +16,7 @@ internal sealed class TripRepository : Repository<Trip, ApplicationDbContext>, I
 
     public IQueryable<Trip> GetAllTripWithContents()
     {
-        return _context.Include(t => t.TripContents).Include(t => t.Tags).Include(t => t.AppUser).Select(t =>
+        return _context.Include(t => t.TripContents).Include(t => t.Tags).Include(t => t.AppUser).Include(t => t.Comments).ThenInclude(c => c.AppUser).Select(t =>
         new Trip
         {
             Id = t.Id,
@@ -40,7 +40,8 @@ internal sealed class TripRepository : Repository<Trip, ApplicationDbContext>, I
                 ImageUrl = z.ImageUrl
             }).ToList(),
 
-            AppUser = t.AppUser
+            AppUser = t.AppUser,
+            Comments = t.Comments
 
         }).AsQueryable();
     }

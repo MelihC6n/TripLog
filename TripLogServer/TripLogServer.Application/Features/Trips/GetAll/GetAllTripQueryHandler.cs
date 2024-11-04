@@ -39,7 +39,21 @@ internal sealed class GetAllTripQueryHandler(
                     t.AppUser.Email,
                     t.AppUser.UserName,
                     t.AppUser.IsAuthor
-                )
+                ),
+
+                t.Comments.Select(c => new QueryComment
+                (
+                    c.Id,
+                    c.Text,
+                    c.CreatedAt,
+                    new QueryAppUser
+                    (
+                        c.AppUser.Id,
+                        c.AppUser.Email,
+                        c.AppUser.UserName,
+                        c.AppUser.IsAuthor
+                    )
+                )).ToList().OrderByDescending(c => c.CreatedAt)
 
             )).ToList();
 

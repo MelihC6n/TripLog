@@ -55,6 +55,7 @@ internal sealed class CreateTripCommandHandler(
             Description = request.Description,
             Tags = tripTags,
             ImageUrl = imagePath,
+            AppUserId = request.AppUserId,
             TripContents = tripContents
         };
         await tripRepository.CreateAsync(trip, cancellationToken);

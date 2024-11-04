@@ -14,6 +14,10 @@ import { CreateUserModel } from '../../models/create-user.model';
 import { LoginModel } from '../../models/login.model';
 import { UserModel } from '../../models/user.model';
 import { AuthService } from '../../services/auth.service';
+import { SendCommentModel } from '../../models/send-comment.model';
+import { CommentModel } from '../../models/comment.model';
+import moment from 'moment';
+import 'moment/locale/tr';
 
 @Component({
   selector: 'app-home',
@@ -28,7 +32,9 @@ export class HomeComponent implements OnInit {
     private http:HttpService,
     private swal:SwalService,
     private auth:AuthService
-  ){}
+  ){
+    moment.locale('tr');
+  }
 
   tripModel:TripModel[]=[];
 
@@ -115,6 +121,7 @@ export class HomeComponent implements OnInit {
     formData.append("description",this.createTripModel.description);
     formData.append("tags",this.createTripModel.tags);
     formData.append("image",this.createTripModel.image);
+    formData.append("appUserId",this.activeUser!.id);
 
     this.createTripModel.tripContents.forEach((content, index) => {
       formData.append(`tripContents[${index}].Title`, content.title);
@@ -314,7 +321,33 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  sendComment(){
-    
+sendCommentModel:SendCommentModel= new SendCommentModel;
+getRelativeTime(date: string): string {
+  return moment(date).fromNow();
+}
+
+
+  sendComment(form:NgForm,tripId:string){
+    if(!this.activeUser){
+      this.commentAccount()
+    }
+    else{
+      if(form.valid){
+        this.sendCommentModel.appUserId=this.activeUser.id;
+        this.sendCommentModel.tripId=tripId;
+        this.http.post<string>("Comment/Send",this.sendCommentModel,res=>{
+          if(res.data){
+            this.sendCommentModel=new SendCommentModel;
+            this.swal.callToast(res.data);
+            this.http.post<CommentModel[]>("Comment/GetTripComments",{tripId},comment=>{
+              if(comment.data){
+                const trip = this.tripModel.find(t=>t.id==tripId);
+                trip!.comments=[...comment.data];
+              }
+            })
+          }
+        });
+      }
+    }
   }
 }

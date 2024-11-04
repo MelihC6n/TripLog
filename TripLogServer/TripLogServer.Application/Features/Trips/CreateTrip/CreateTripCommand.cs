@@ -8,6 +8,7 @@ public sealed record CreateTripCommand(
     string Description,
     IFormFile Image,
     string Tags,
+    string AppUserId,
     List<TripContentCommand> TripContents) : IRequest<Result<string>>;
 
 public sealed record TripContentCommand(
