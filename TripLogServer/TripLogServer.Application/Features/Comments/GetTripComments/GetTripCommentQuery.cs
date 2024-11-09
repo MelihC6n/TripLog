@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using TripLogServer.Application.Features.Trips.GetAll;
+using TripLogServer.Application.Features.Trips.GetContentOfTrip;
 using TS.Result;
 
 namespace TripLogServer.Application.Features.Comments.GetTripComments;

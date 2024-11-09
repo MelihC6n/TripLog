@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   ){
     moment.locale('tr');
   }
+  placeholder:number[]=[1,2,3];
 
   tripModel:TripModel[]=[];
 
@@ -106,6 +107,7 @@ export class HomeComponent implements OnInit {
       console.log(res.data);
       console.log(this.tripModel);
     })
+    console.log(this.tripModel);
   }
 
   createTrip(form:NgForm){
@@ -139,12 +141,32 @@ export class HomeComponent implements OnInit {
   selectImage(event:any){
     const file=event.target.files[0];
     if(file){
-      this.createTripModel.image=file;
-      this.previewImage(file,true);
+      debugger
+      if(file.type.includes('image'))
+      {
+        this.createTripModel.image=file;
+        this.previewImage(file,true);
+      }
+      else{
+        this.swal.callToast("Lütfen sadece resim formatında giriş yapınız",'error')
+        event.target.value='';
+      }
     }
     else{
         this.imagePreview="";
     }
+  }
+
+  showContentOfTrip(tripId:string){
+    this.http.post('Trip/GetContentOfTrip',{tripId},res=>{
+      if(res.data){
+        console.log(res.data);
+        const trip = this.tripModel.find(t=>t.id == tripId);
+        trip!.tripContents=[...res.data.tripContents];
+        trip!.comments=[...res.data.comments];
+        console.log(this.tripModel);
+      }
+    })
   }
 
   selectUpdateImage(event:any){

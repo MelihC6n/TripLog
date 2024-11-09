@@ -43,6 +43,35 @@
 
   <div class="container" id="mainPage">
 <!--  -->
+    @if(tripModel?.length==0){      
+      @for (item of placeholder; track $index) {
+        <div class="card posts" style="width: 100%;">
+          <div class="card-main">
+              <div class="card-left" style="background-color: gray;">            
+                  <div class="card-img-top" alt="..."></div>
+              </div>
+              <div class="card-right">
+                  <div class="card-body tripbody">
+                    <div>
+                      <h5 class="title card-title placeholder-glow">&nbsp;</h5>
+                      <p class="card-text placeholder-glow">
+                        <span class="placeholder col-7"></span>&nbsp;&nbsp;
+                        <span class="placeholder col-4"></span>&nbsp;&nbsp;
+                        <span class="placeholder col-4"></span>&nbsp;&nbsp;
+                        <span class="placeholder col-6"></span>
+                        <span class="placeholder col-8"></span>
+                      </p>
+                    </div>  
+                  <div>
+                        <br><br>
+                        <a href="#" tabindex="-1" style="width: 50%;" class="btn btn-primary more-content disabled placeholder col-6"></a>
+                    </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      }
+    }
     @for (trip of tripModel; track trip) {
 
       <div class="card posts" style="width: 100%;">
@@ -65,7 +94,7 @@
                       }
                     }
                         <br><br>
-                        <a href="#" style="width: 100%;" class="btn btn-light more-content" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto; ">Daha Fazlası İçin 🔽</a>
+                        <a href="#" style="width: 100%;" class="btn btn-light more-content" data-bs-toggle="collapse" [attr.data-bs-target]="'#collapse' + $index" aria-expanded="false" aria-controls="collapse" style="margin-top:auto;" (click)="showContentOfTrip(trip.id)">Daha Fazlası İçin 🔽</a>
                         <span class="ms-4">Yazar :  <a class="userLink" style="text-decoration: none;" href="#{{trip.appUser.userName}}">{{trip.appUser.userName}}</a></span>
                         @if(trip.appUserId == activeUser?.id){
                           <i class="fa-solid fa-x mt-1 me-2 edit-button" style="background-color:red;" title="Delete This Post" (click)="deleteTrip(trip.id,trip.title)"></i>
@@ -121,10 +150,13 @@
                     <!-- Yorum listesi -->
                     <div class="list-group p-1" style="overflow-y: auto; height: 500px; border: 1px;">
                       <!-- Yorumlara For -->
-                       @if(trip.comments.length===0){
-                        <div class="list-group-item">
-                          <strong>Bu geziye henüz kimse yorum yapmadı, ilk yorumu sen alabilirsin!</strong>
-                        </div>
+                       @if(trip.comments){
+                        @if(trip.comments.length==0)
+                        {
+                          <div class="list-group-item">
+                            <strong>Bu geziye henüz kimse yorum yapmadı, ilk yorumu sen alabilirsin!</strong>
+                          </div>
+                        }
                        }
                        @for (comment of trip.comments; track $index) {
                          <div class="list-group-item">
@@ -178,7 +210,7 @@
           <textarea type="text" class="form-control" name="description" rows="3" [(ngModel)]="createTripModel.description" placeholder="Gezi metni giriniz."></textarea>
           <br>
           <h5>Gezi Kapak Fotoğrafı:</h5>
-          <input type="file" name="image" (change)="selectImage($event)" class="form-control">
+          <input type="file" name="image" accept="image/*" (change)="selectImage($event)" class="form-control">
           @if(imagePreview){
           <br>
             <div style=" display: flex; flex-direction: row; align-items: center; gap: 20px;">

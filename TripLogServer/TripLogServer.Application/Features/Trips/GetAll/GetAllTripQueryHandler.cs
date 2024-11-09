@@ -25,13 +25,13 @@ internal sealed class GetAllTripQueryHandler(
                     x.Name
                 )).ToList(),
 
-                t.TripContents.Select(z => new QueryTripContents
-                (
-                    z.Id,
-                    z.Title,
-                    z.Description,
-                    z.ImageUrl
-                )).ToList(),
+                //t.TripContents.Select(z => new QueryTripContents
+                //(
+                //    z.Id,
+                //    z.Title,
+                //    z.Description,
+                //    z.ImageUrl
+                //)).ToList(),
 
                 new QueryAppUser
                 (
@@ -39,21 +39,21 @@ internal sealed class GetAllTripQueryHandler(
                     t.AppUser.Email,
                     t.AppUser.UserName,
                     t.AppUser.IsAuthor
-                ),
+                )
 
-                t.Comments.Select(c => new QueryComment
-                (
-                    c.Id,
-                    c.Text,
-                    c.CreatedAt,
-                    new QueryAppUser
-                    (
-                        c.AppUser.Id,
-                        c.AppUser.Email,
-                        c.AppUser.UserName,
-                        c.AppUser.IsAuthor
-                    )
-                )).ToList().OrderByDescending(c => c.CreatedAt)
+            //t.Comments.Select(c => new QueryComment
+            //(
+            //    c.Id,
+            //    c.Text,
+            //    c.CreatedAt,
+            //    new QueryAppUser
+            //    (
+            //        c.AppUser.Id,
+            //        c.AppUser.Email,
+            //        c.AppUser.UserName,
+            //        c.AppUser.IsAuthor
+            //    )
+            //)).ToList().OrderByDescending(c => c.CreatedAt)
 
             )).ToList();
 

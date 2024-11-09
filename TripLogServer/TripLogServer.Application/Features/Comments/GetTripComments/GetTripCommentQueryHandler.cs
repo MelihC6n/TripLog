@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using TripLogServer.Application.Features.Trips.GetAll;
+using TripLogServer.Application.Features.Trips.GetContentOfTrip;
 using TripLogServer.Domain.Repositories;
 using TS.Result;
 
