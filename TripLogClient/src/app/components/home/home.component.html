@@ -117,8 +117,8 @@
                    <h2 class="accordion-header"></h2>
                    <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                       <hr style="margin: 0px; padding: 0px; width: 98%; float: right;">
-                      <div class="accordion-body">
-                        <div id="carousel{{$index}}" class="carousel slide">
+                      <div class="accordion-body" style="display: flex; align-items: center;">
+                        <div id="carousel{{$index}}" class="carousel slide" style="display: flex; align-items: center;">
                           <div class="carousel-inner">
                             @if(!trip.tripContents)
                             {
@@ -140,7 +140,7 @@
                             @for (content of trip.tripContents; track content) {
                                 <div [ngClass]="{'carousel-item':true, 'active':$index == 0}">
                                   <img src="{{contentsImage}}{{content.imageUrl}}" class="d-block w-100 carousel-img" alt="...">
-                                  <div class="card-body" style="height: 200px; overflow-y: auto;">
+                                  <div class="card-body" style="max-height: 300px; overflow-y: auto;">
                                     <h5 class="card-title">{{$index+1}}. {{content.title}}</h5>
                                     <p class="card-text">{{content.description}}</p>
                                   </div>
@@ -162,7 +162,7 @@
 
               </div>
 
-              <div class="commentSide" style="height: auto; width: auto; flex: 2;">
+              <div class="commentSide" style="height: auto; width: auto; flex: 3;">
       
                 <div class="collapse" id="collapse{{$index}}">
                   <hr style="margin: 0px; padding: 0px; width: 100%;">
