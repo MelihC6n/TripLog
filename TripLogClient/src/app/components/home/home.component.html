@@ -8,31 +8,37 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        </ul>
+      <div class="collapse navbar-collapse ml-auto me-0" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
+
         @if(!activeUser){
-          <button type="button" #loginModalBtn class="btn btn-outline-light btn-lg btn-light-big me-2" style="display: flex; align-items: center; padding: 6px 22px; margin-right: 120px !important;" data-bs-toggle="modal" data-bs-target="#loginModal">
-            <div>
-              <p class="avatar-login-text"><i class="fa-solid fa-plane-arrival me-2"></i>Giriş Yap</p>
-            </div>
-          </button>
+          <li>
+            <button type="button" #loginModalBtn class="btn btn-outline-light btn-lg btn-light-big me-2" style="display: flex; align-items: center; padding: 6px 22px; margin-right: 120px !important;" data-bs-toggle="modal" data-bs-target="#loginModal">
+              <div>
+                <p class="avatar-login-text"><i class="fa-solid fa-plane-arrival me-2"></i>Giriş Yap</p>
+              </div>
+            </button>
+          </li>
         }
         @else {
-          <div class="dropdown">
-            <button class="btn btn-outline-light btn-lg btn-light-big me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center; padding: 6px 12px;" [style.margin-right]="activeUser.isAuthor ? '' : '120px !important'">
-              <div class="avatar-login">
-                {{activeUser.userName[0]}}
-               </div> 
-               <div>
-                 <p class="avatar-login-text dropdown-toggle">{{activeUser.userName}}</p>
-               </div>
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#" (click)="singOut()" ><i class="fa-solid fa-plane-departure me-2"></i>Çıkış Yap</a></li>
-            </ul>
-          </div>
+          <li>
+            <div class="dropdown">
+              <button class="btn btn-outline-light btn-lg btn-light-big me-2" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="display: flex; align-items: center; padding: 6px 12px;" [style.margin-right]="activeUser.isAuthor ? '' : '120px !important'">
+                <div class="avatar-login">
+                  {{activeUser.userName[0]}}
+                 </div> 
+                 <div>
+                   <p class="avatar-login-text dropdown-toggle">{{activeUser.userName}}</p>
+                 </div>
+              </button>
+  
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#" (click)="singOut()" ><i class="fa-solid fa-plane-departure me-2"></i>Çıkış Yap</a></li>
+              </ul>
+            </div>
+          </li>
         }
+      </ul>
 
         @if(activeUser?.isAuthor==true){
           <button type="button" class="btn btn-light btn-light-big" data-bs-toggle="modal" #openModel data-bs-target="#tripModal">Buradan Bir Gezi Ekle</button>
@@ -41,7 +47,7 @@
     </div>
   </nav>
 
-  <div class="container" id="mainPage">
+  <div class="container-xxl" id="mainPage">
 <!--  -->
     @if(tripModel?.length==0){      
       @for (item of placeholder; track $index) {
@@ -105,9 +111,8 @@
               </div>
           </div>
   
-             <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between; flex-wrap: wrap; flex-direction: row;">
-               <div class="contentSide" style="flex: 3rem;">
-                 
+             <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between; flex-direction: row;">
+               <div class="contentSide">
                  <div class="accordion-item" style="border-radius: 0px 0px 0px 5px ;">
                    <h2 class="accordion-header"></h2>
                    <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -140,11 +145,11 @@
 
               </div>
 
-              <div class="commentSide" style="flex: 1rem; height: auto; width: auto;">
+              <div class="commentSide" style="height: auto; width: auto;">
       
                 <div class="collapse" id="collapse{{$index}}">
                   <hr style="margin: 0px; padding: 0px; width: 100%;">
-                  <div class="card card-body comment-place" style="width: auto; height: 734px; border-radius: 0px 0px 5px 0px;">
+                  <div class="card card-body comment-place" style="width: auto; height: 100%; border-radius: 0px 0px 5px 0px;">
                     <h5>Comment Area</h5>
                   
                     <!-- Yorum listesi -->

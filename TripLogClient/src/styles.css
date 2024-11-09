@@ -20,7 +20,7 @@ body{
     font-weight: 700;
 }
 
-.container{
+.container-xxl{
     padding-top: 20px;
     display: flex;
     justify-content: center;
@@ -55,15 +55,11 @@ body{
     display: flex;
     flex-direction: row;
     gap: 20px;
-    flex-wrap: wrap;
 }
 
 .card-left {
-    flex: 1;
     max-height: 300px;
-    width: 400px;
-    height: auto;
-    object-fit: contain;
+    width: 35%;
 }
 
 .card-left img{
@@ -71,18 +67,14 @@ body{
 }
 
 .card-right {
-    flex: 2;
+    width: 64%;
 }
-
-/* .card-img-top {
-    height: 250px;
-    width: 400px;
-    height: auto;
-    object-fit: contain;
-} */
 
 .carousel-inner{
     width: 800px !important;
+}
+.accordion{
+    width: 100%;
 }
 
 .accordion-item{
@@ -109,7 +101,7 @@ body{
 
 .carousel-img{
     max-height: 500px;
-    height: 500px;
+    width: auto;
     min-height: auto;
 }
 
@@ -185,4 +177,46 @@ body{
 
 .userLink{
     color: #b97a57;
+}
+
+@media(max-width:1200px){
+    .accordion{
+        flex-direction: column !important;
+    }
+    .carousel-inner{
+        width: 100% !important;
+    }
+}
+@media(max-width:1100px)
+{
+    .card-left{
+        flex:3;
+    }
+
+    .card-right{
+        flex:4;
+    }
+}
+@media(max-width:900px)
+{
+    .card-left{
+        flex:3;
+    }
+
+    .card-right{
+        flex:4;
+    }
+}
+@media(max-width:780px)
+{
+    .card-main{
+        flex-direction: column;
+    }
+    .card-left{
+        width: 100%;
+    }
+    .card-right{
+        width: 100%;
+        background-color: white;
+    }
 }
