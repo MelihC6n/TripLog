@@ -112,7 +112,7 @@
           </div>
   
              <div class="accordion" id="accordionExample" style="display: flex; justify-content: space-between; flex-direction: row;">
-               <div class="contentSide">
+               <div class="contentSide" style="flex:5">
                  <div class="accordion-item" style="border-radius: 0px 0px 0px 5px ;">
                    <h2 class="accordion-header"></h2>
                    <div id="collapse{{$index}}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -120,6 +120,23 @@
                       <div class="accordion-body">
                         <div id="carousel{{$index}}" class="carousel slide">
                           <div class="carousel-inner">
+                            @if(!trip.tripContents)
+                            {
+                              <div class="carousel-item active">
+                                <div class="d-block w-100 carousel-img" style="padding: 250px; background-color: gray;"></div>
+                                <div class="card-body" style="height: 200px; overflow-y: auto;">
+                                  <h5 class="card-title placeholder-glow">
+                                    <span class="placeholder col-6"></span>
+                                  </h5>
+                                  <p class="card-text placeholder-glow">
+                                    <span class="placeholder col-7"></span>&nbsp;&nbsp;
+                                    <span class="placeholder col-4"></span>&nbsp;&nbsp;
+                                    <span class="placeholder col-4"></span>&nbsp;&nbsp;
+                                    <span class="placeholder col-6"></span>
+                                  </p>
+                                </div>
+                              </div>
+                            }
                             @for (content of trip.tripContents; track content) {
                                 <div [ngClass]="{'carousel-item':true, 'active':$index == 0}">
                                   <img src="{{contentsImage}}{{content.imageUrl}}" class="d-block w-100 carousel-img" alt="...">
@@ -145,7 +162,7 @@
 
               </div>
 
-              <div class="commentSide" style="height: auto; width: auto;">
+              <div class="commentSide" style="height: auto; width: auto; flex: 2;">
       
                 <div class="collapse" id="collapse{{$index}}">
                   <hr style="margin: 0px; padding: 0px; width: 100%;">
