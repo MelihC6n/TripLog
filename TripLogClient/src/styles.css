@@ -249,6 +249,10 @@ body{
       transform: translateY(-50%);
       z-index: 10;
     }
+    .optionsandmore{
+        display: flex;
+        flex-direction: column;
+    }
 }
 @media(max-width:350px){
     .carousel-control-prev,
