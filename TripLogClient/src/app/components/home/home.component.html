@@ -204,7 +204,7 @@
                         <h5>Bir Yorum Bırak!</h5>
                         <form autocomplete="off" #commentForm="ngForm" (ngSubmit)="sendComment(commentForm,trip.id)">
                           <textarea class="form-control" [(ngModel)]="sendCommentModel.text" (click)="commentAccount()" name="comment" rows="2" style="resize: none;"></textarea>
-                          <button type="submit" class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" >Send Comment</button>
+                          <button type="submit" class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" >Yorum Gönder</button>
                         </form>
                       </div>
                     </div>
