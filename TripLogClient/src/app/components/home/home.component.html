@@ -171,7 +171,7 @@
                 <div class="collapse" id="collapse{{$index}}">
                   <hr style="margin: 0px; padding: 0px; width: 100%;">
                   <div class="card card-body comment-place" style="width: auto; height: 100%; border-radius: 0px 0px 5px 0px;">
-                    <h5>Comment Area</h5>
+                    <h5>Yorum Alanı</h5>
                   
                     <!-- Yorum listesi -->
                     <div class="list-group p-1" style="overflow-y: auto; height: 500px; border: 1px;">
@@ -201,7 +201,7 @@
 
                     <div class="add-comment mt-2">
                       <div class="card card-body">
-                        <h5>Leave A Comment!</h5>
+                        <h5>Bir Yorum Bırak!</h5>
                         <form autocomplete="off" #commentForm="ngForm" (ngSubmit)="sendComment(commentForm,trip.id)">
                           <textarea class="form-control" [(ngModel)]="sendCommentModel.text" (click)="commentAccount()" name="comment" rows="2" style="resize: none;"></textarea>
                           <button type="submit" class="btn btn-light btn-light-big mt-1" style="background-color: #b97a57; color: white;" >Send Comment</button>
